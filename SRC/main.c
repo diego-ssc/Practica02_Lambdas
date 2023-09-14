@@ -3,7 +3,7 @@
 
 #include "sistema.h"
 
-/* Ejecución del hilo de ejecución principal. */
+/* Hilo de ejecución principal. */
 int main(int argc, char** argv) {
 
   Bioma* bioma = bioma_new("Hello", "There", 5);

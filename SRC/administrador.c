@@ -1,3 +1,6 @@
+#include <sys/mman.h>
+#include <sys/stat.h>
+
 #include "administrador.h"
 
 /* La estructura Administrador. */
@@ -33,7 +36,7 @@ Administrador* administrador_new(char* file_n_vet, char* file_n_bi, char* file_n
   administrador->file_n_bi = malloc(sizeof(char)*(strnlen(file_n_bi,
                                                           TAMANO_NOMBRE)+1));
   administrador->file_n_an = malloc(sizeof(char)*(strnlen(file_n_an,
-                                                         TAMANO_NOMBRE)+1));
+                                                          TAMANO_NOMBRE)+1));
 
   strcpy(administrador->file_n_vet, file_n_vet);
   strcpy(administrador->file_n_bi, file_n_bi);
@@ -43,16 +46,6 @@ Administrador* administrador_new(char* file_n_vet, char* file_n_bi, char* file_n
   administrador->n_a = 1;
   administrador->n_b = 1;
   administrador->n_v = 1;
-
-  /* if (!administrador->fp_b) { */
-  /*   fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n", file_n_bi); */
-  /*   exit(1); */
-  /* } */
-
-  /* if (!administrador->fp_a) { */
-  /*   fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n", file_n_an); */
-  /*   exit(1); */
-  /* } */
 
   return administrador;
 }
@@ -64,6 +57,10 @@ void administrador_free(Administrador* administrador) {
 
 /* Agrega el Animal parámetro a la base de datos. */
 void administrador_agrega_a(Administrador* administrador, Animal* animal) {
+  if (!animal) {
+    fprintf(stderr, "Sistema:\tAnimal no válido\n");
+    return;
+  }
   administrador->fp_a = fopen(administrador->file_n_an, "a");
 
   if (!administrador->fp_a) {
@@ -81,6 +78,10 @@ void administrador_agrega_a(Administrador* administrador, Animal* animal) {
 
 /* Agrega el Bioma parámetro a la base de datos. */
 void administrador_agrega_b(Administrador* administrador, Bioma* bioma) {
+  if (!bioma) {
+    fprintf(stderr, "Sistema:\tBioma no válido\n");
+    return;
+  }
   administrador->fp_b = fopen(administrador->file_n_bi, "a");
 
   if (!administrador->fp_b) {
@@ -98,6 +99,10 @@ void administrador_agrega_b(Administrador* administrador, Bioma* bioma) {
 
 /* Agrega el Veterinario parámetro a la base de datos. */
 void administrador_agrega_v(Administrador* administrador, Veterinario* veterinario) {
+  if (!veterinario) {
+    fprintf(stderr, "Sistema:\tVeterinario no válido\n");
+    return;
+  }
   administrador->fp_v = fopen(administrador->file_n_vet, "a");
 
   if (!administrador->fp_v) {
@@ -118,8 +123,76 @@ void administrador_agrega_v(Administrador* administrador, Veterinario* veterinar
 /* Elimina la entidad parámetro de la base de datos. */
 void administrador_elimina(Administrador* administrador, void* entidad);
 
-/* Consulta la entidad parámetro de la base de datos. */
-void administrador_consulta(Administrador* administrador, void* entidad);
+/* Devuelve el índice del inicio de la línea donde se encuentra la entidad
+   buscada. */
+static int busqueda_binaria_map(char* map, int i) {
+  i /= 2;
+  int j = i;
+
+  while (1) {
+    while (*(map + j) != '\n')
+      j++;
+
+    if (atoi(map + j + 1) == i)
+      return j + 1;
+    if (atoi(map + j + 1) < i)
+      j /= 2;
+    else
+      j += j/2;
+  }
+
+  return j + 1;
+}
+
+/* Consulta el Animal de la base de datos. */
+Animal* administrador_consulta_a(Administrador* administrador, Animal* animal) {
+  if (!animal) {
+    fprintf(stderr, "Sistema:\tAnimal no válido\n");
+    return 0;
+  }
+
+  /* Información del archivo. */
+  struct stat s;
+
+  /* El archivo mapeado. */
+  char* m;
+
+  administrador->fp_a = fopen(administrador->file_n_an, "r");
+
+  if (!administrador->fp_a) {
+    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
+            administrador->file_n_an);
+    return 0;
+  }
+
+  if (0 > fstat(fileno(administrador->fp_a), &s)) {
+    fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
+            administrador->file_n_an);
+    return 0;
+  }
+
+  m = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fileno(administrador->fp_a), 0);
+
+  if (MAP_FAILED == m) {
+    fprintf(stderr, "Sistema:\tError al mapear: %s\n", administrador->file_n_an);
+    return 0;
+  }
+
+  /* Se supone que los índices son ontinuos. */
+  if (animal_id(animal) >= s.st_size) {
+    fprintf(stderr, "Sistema:\tPosici\'on no v\'alida\n");
+    return 0;
+  }
+
+  /* *(m + s.st_size) */
+  return 0;
+}
+
+/* Consulta el Bioma de la base de datos. */
+void administrador_consulta_b(Administrador* administrador, Bioma* bioma);
+
+/* Consulta el Veterinario de la base de datos. */
+void administrador_consulta_v(Administrador* administrador, Veterinario* veterinario);
 
 /* Edita la entidad parámetro de la base de datos. */
 void administrador_edita(Administrador* administrador, void* entidad);
