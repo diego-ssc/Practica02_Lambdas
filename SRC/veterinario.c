@@ -88,7 +88,7 @@ char* veterinario_nombre(Veterinario* veterinario) {
 
 /* Devuelve la jornada del veterinario. */
 int veterinario_jornada(Veterinario* veterinario) {
-  veterinario->jornada;
+  return veterinario->jornada;
 }
 
 /* Devuelve el correo electrónico del veterinario. */

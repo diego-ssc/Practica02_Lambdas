@@ -48,7 +48,7 @@ void animal_set_fecha_nacimiento(Animal* animal, char* nueva_fecha){
 }
 
 /*  Regresa la fecha de nacimiento del animal */
-char* animal_get_fecha_nacimiento(Animal* animal) {
+char* animal_fecha_nacimiento(Animal* animal) {
   return animal->fecha_nacimiento;
 }
 
@@ -61,7 +61,7 @@ void animal_set_nombre(Animal* animal, char* nuevo_nombre) {
 }
 
 /* Regresa el nombre del animal */
-char* animal_get_nombre(Animal* animal) {
+char* animal_nombre(Animal* animal) {
   return animal->nombre;
 }
 
@@ -74,7 +74,7 @@ void animal_set_especie(Animal* animal, char* nueva_especie) {
 }
 
 /* Regresa la especie del animal */
-char* animal_get_especie(Animal* animal) {
+char* animal_especie(Animal* animal) {
   return animal->especie;
 }
 
