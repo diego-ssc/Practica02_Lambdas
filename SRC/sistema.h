@@ -6,6 +6,12 @@
 #define TAMANO_FECHA 8
 /* Define el tamaño designado del rfc*/
 #define TAMANO_RFC 13
+/*Define la cadena de la entidad veterinario*/
+#define ENTIDAD_VETERINARIO "veterinario"
+/*Define la cadena de la entidad bioma*/
+#define ENTIDAD_BIOMA "bioma"
+/*Define la cadena de la entidad animal*/
+#define ENTIDAD_ANIMAL "animal"
 
 /* La estructura Administrador opaca. */
 typedef struct Administrador_ Administrador;

@@ -18,7 +18,7 @@ void administrador_free(Administrador* administrador);
  * @param administrador el administrador.
  * @param entidad la entidad.
  */
-void administrador_agrega(Administrador* administrador, void* entidad);
+void administrador_agrega(Administrador* administrador, char* entidad);
 
 /**
  * Elimina la entidad parámetro de la base de datos.
