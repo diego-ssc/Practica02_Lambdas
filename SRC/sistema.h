@@ -3,6 +3,8 @@
 /* Define el tamaño designado de los nombres. */
 #define TAMANO_NOMBRE 50
 
+#define TAMANO_PROMEDIO_LINEA 16
+
 /* La estructura Administrador opaca. */
 typedef struct Administrador_ Administrador;
 

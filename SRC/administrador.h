@@ -48,24 +48,26 @@ void administrador_elimina(Administrador* administrador, void* entidad);
 /**
  * Consulta el Animal parámetro de la base de datos.
  * @param administrador el administrador.
- * @param animal el animal.
+ * @param id el identificador.
  * @return el animal.
  */
-Animal* administrador_consulta_a(Administrador* administrador, Animal* animal);
+Animal* administrador_consulta_a(Administrador* administrador, int id);
 
 /**
  * Consulta el Bioma parámetro de la base de datos.
  * @param administrador el administrador.
- * @param bioma el bioma.
+ * @param id el identificador.
+ * @return el bioma.
  */
-void administrador_consulta_b(Administrador* administrador, Bioma* bioma);
+Bioma* administrador_consulta_b(Administrador* administrador, int id);
 
 /**
  * Consulta el Veterinario parámetro de la base de datos.
  * @param administrador el administrador.
- * @param veterinario el veterinario.
+ * @param id el identificador.
+ * @return el veterinario.
  */
-void administrador_consulta_v(Administrador* administrador, Veterinario* veterinario);
+Veterinario* administrador_consulta_v(Administrador* administrador, int id);
 
 /**
  * Edita la entidad parámetro de la base de datos.

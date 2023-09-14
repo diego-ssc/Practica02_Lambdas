@@ -125,28 +125,31 @@ void administrador_elimina(Administrador* administrador, void* entidad);
 
 /* Devuelve el índice del inicio de la línea donde se encuentra la entidad
    buscada. */
-static int busqueda_binaria_map(char* map, int i) {
-  i /= 2;
-  int j = i;
+static int busqueda_binaria_map(char* map, int i, size_t file_size) {
+  int j = file_size/2;
 
   while (1) {
-    while (*(map + j) != '\n')
-      j++;
+    while (*(map + j) != '\n' && j > 0) {
+      if (j == 0)
+        break;
+      j--;
+    }
 
-    if (atoi(map + j + 1) == i)
-      return j + 1;
-    if (atoi(map + j + 1) < i)
+    j = j ? j : -1;
+    if (atoi(map + j+1) == i)
+      return j+1;
+    if (atoi(map + j+1) > i)
       j /= 2;
     else
-      j += j/2;
+      j += TAMANO_PROMEDIO_LINEA+j/2;
   }
 
-  return j + 1;
+  return j+1;
 }
 
 /* Consulta el Animal de la base de datos. */
-Animal* administrador_consulta_a(Administrador* administrador, Animal* animal) {
-  if (!animal) {
+Animal* administrador_consulta_a(Administrador* administrador, int id) {
+  if (id > administrador->n_a) {
     fprintf(stderr, "Sistema:\tAnimal no válido\n");
     return 0;
   }
@@ -178,21 +181,68 @@ Animal* administrador_consulta_a(Administrador* administrador, Animal* animal) {
     return 0;
   }
 
-  /* Se supone que los índices son ontinuos. */
-  if (animal_id(animal) >= s.st_size) {
+  /* Se supone que los índices son continuos. */
+  if (id >= s.st_size) {
     fprintf(stderr, "Sistema:\tPosici\'on no v\'alida\n");
     return 0;
   }
+
+  int b = busqueda_binaria_map(m, id, s.st_size);
+  printf("Hello:%d\n", b);
+  printf("There: %c%c%c%c%c\n", *(m+b), *(m+b+1), *(m+b+2),
+         *(m+b+3), *(m+b+4));
 
   /* *(m + s.st_size) */
   return 0;
 }
 
 /* Consulta el Bioma de la base de datos. */
-void administrador_consulta_b(Administrador* administrador, Bioma* bioma);
+Bioma* administrador_consulta_b(Administrador* administrador, int id) {
+  if (id > administrador->n_b) {
+    fprintf(stderr, "Sistema:\tBioma no válido\n");
+    return 0;
+  }
+
+  /* Información del archivo. */
+  struct stat s;
+
+  /* El archivo mapeado. */
+  char* m;
+
+  administrador->fp_b = fopen(administrador->file_n_bi, "r");
+
+  if (!administrador->fp_b) {
+    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
+            administrador->file_n_bi);
+    return 0;
+  }
+
+  if (0 > fstat(fileno(administrador->fp_b), &s)) {
+    fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
+            administrador->file_n_bi);
+    return 0;
+  }
+
+  m = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fileno(administrador->fp_b), 0);
+
+  if (MAP_FAILED == m) {
+    fprintf(stderr, "Sistema:\tError al mapear: %s\n", administrador->file_n_bi);
+    return 0;
+  }
+  /* Se supone que los índices son continuos. */
+  if (id >= s.st_size) {
+    fprintf(stderr, "Sistema:\tPosici\'on no v\'alida\n");
+    return 0;
+  }
+
+  int b = busqueda_binaria_map(m, id, s.st_size);
+  printf("Hello:%d\n", b);
+
+  return 0;
+}
 
 /* Consulta el Veterinario de la base de datos. */
-void administrador_consulta_v(Administrador* administrador, Veterinario* veterinario);
+Veterinario* administrador_consulta_v(Administrador* administrador, int id);
 
 /* Edita la entidad parámetro de la base de datos. */
 void administrador_edita(Administrador* administrador, void* entidad);
