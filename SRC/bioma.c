@@ -1,4 +1,6 @@
 #include "bioma.h"
+#include <stdlib.h>
+#include <string.h>
 
 /* La estructura bioma. */
 struct Bioma_ {
@@ -8,10 +10,21 @@ struct Bioma_ {
   char* region;
   /* El identificador. */
   int id;
+  /*El numero de jaulas. */
+  int n_jaulas;
+  /*EL numero de cuidadores.*/
+  int n_cuidadores;
+  /*El numero de veterinarios. */
+  int n_veterinarios;
+  /*El numero de animales. */
+  int n_animales;
+  /*La lista de servicios del bioma*/
+  char* servicios;
 };
 
 /* Crea un nuevo Bioma. */
-Bioma* bioma_new(char* nombre, char* region, int id) {
+Bioma* bioma_new(char* nombre, char* region, int id, int n_jaulas, int n_cuidadores,
+                int n_veterinarios, int n_animales, char* servicios) {
   /* Reservación en el heap. */
   Bioma* bioma = malloc(sizeof(struct Bioma_));
 
@@ -21,8 +34,15 @@ Bioma* bioma_new(char* nombre, char* region, int id) {
 
   bioma->region = malloc(sizeof(char)*(strnlen(region, TAMANO_NOMBRE)+1));
   strcpy(bioma->region, region);
+                
+  bioma->servicios = malloc(sizeof(char)*(strnlen(servicios, TAMANO_NOMBRE)+1));
+  strcpy(bioma->servicios, servicios);
 
   bioma->id = id;
+  bioma->n_jaulas = n_jaulas;         
+  bioma->n_cuidadores = n_cuidadores;
+  bioma->n_veterinarios = n_veterinarios;
+  bioma->n_animales = n_animales;              
 
   return bioma;
 }

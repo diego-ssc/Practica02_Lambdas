@@ -9,7 +9,8 @@
  * @param nombre el nombre del animal
  * @param especie la especie del animal
  */
-Animal* animal_new(int id, int bioma , char* fecha, char* nombre, char* especie);
+Animal* animal_new(int id, int bioma , char* fecha, char* nombre, char* especie, float peso,
+  float altura, char* sexo, int n_jaula, char* t_alim, char* ind_med);
 
 /**
  * Libera animal
@@ -29,7 +30,7 @@ void animal_set_fecha_nacimiento(Animal* animal, char* nueva_fecha);
  * @param animal el animal
  * @return la fecha de nacimiento
  */
-char* animal_get_fecha_nacimiento(Animal* animal);
+char* animal_fecha_nacimiento(Animal* animal);
 
 /**
  * Setter para el atributo nombre
@@ -43,7 +44,7 @@ void animal_set_nombre(Animal* animal, char* nuevo_nombre);
  * @param animal el animal
  * @return el nombre 
  */
-char* animal_get_nombre(Animal* animal);
+char* animal_nombre(Animal* animal);
 
 /**
  * Setter para el atributo especie
@@ -57,7 +58,7 @@ void animal_set_especie(Animal* animal, char* nueva_especie);
  * @param animal el animal
  * @return la especie
  */
-char* animal_get_especie(Animal* animal);
+char* animal_especie(Animal* animal);
 
 
 /**

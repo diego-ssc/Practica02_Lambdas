@@ -8,7 +8,8 @@
  * @param region la región.
  * @param id el identificador.
  */
-Bioma* bioma_new(char* nombre, char* region, int id);
+Bioma* bioma_new(char* nombre, char* region, int id, int n_jaulas, int n_cuidadores,
+                int n_veterinarios, int n_animales, char* servicios);
 
 /**
  * Libera la memoria usada por un Bioma.
