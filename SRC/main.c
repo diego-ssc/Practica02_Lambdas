@@ -112,20 +112,20 @@ int main(int argc, char** argv) {
   Administrador* administrador = administrador_new(archivos,
                                                    NUMERO_ENTIDADES);
 
-  Bioma* bioma = bioma_new("nombre", "region", 1);
+  Bioma* bioma = bioma_new("wen", "wen", 1);
   Veterinario* vet = veterinario_new(1, 0, "nombre", 0, "correo", "fecha");
   Animal* animal = animal_new(1, 1, "fecha", "nombre", "especie");
-  //administrador_agrega(administrador, bioma, BIOMA);
-  administrador_agrega(administrador, vet, VETERINARIO);
-  administrador_agrega(administrador, animal, ANIMAL);
-  
-  
+  administrador_agrega(administrador, bioma, BIOMA);
+  administrador_elimina(administrador, 1, BIOMA);
+
   Bioma* bioma1 = administrador_consulta(administrador, 5, BIOMA);
   if (bioma1)
     printf("%d,%s\n", bioma_id(bioma1), bioma_nombre(bioma1));
+
+  animal_free(animal);
+  veterinario_free(vet);
   bioma_free(bioma);
-  if (bioma1)
-    bioma_free(bioma1);
+  bioma_free(bioma1);
   administrador_free(administrador);
 
   return 0;
