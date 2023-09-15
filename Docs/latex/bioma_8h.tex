@@ -1,0 +1,242 @@
+\doxysection{SRC/bioma.h File Reference}
+\hypertarget{bioma_8h}{}\label{bioma_8h}\index{SRC/bioma.h@{SRC/bioma.h}}
+{\ttfamily \#include "{}sistema.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{bioma_8h_a4b66d1e4ba6a2c826494e3007372ce40}{bioma\+\_\+new}} (char \texorpdfstring{$\ast$}{*}nombre, char \texorpdfstring{$\ast$}{*}region, int id)
+\item 
+void \mbox{\hyperlink{bioma_8h_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}{bioma\+\_\+free}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{bioma_8h_ab40e8c94343157ba5941cbf4307024d4}{bioma\+\_\+nombre}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{bioma_8h_ac216013e87ba8e3819df7eb4a3f03f59}{bioma\+\_\+region}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma)
+\item 
+int \mbox{\hyperlink{bioma_8h_af779a15950086108efce0d67bf81169e}{bioma\+\_\+id}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma)
+\item 
+void \mbox{\hyperlink{bioma_8h_a1f4a1c652ea265dcecf955e657691ea4}{bioma\+\_\+set\+\_\+nombre}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma, char \texorpdfstring{$\ast$}{*}nombre)
+\item 
+void \mbox{\hyperlink{bioma_8h_a156beaa26844f6f187ead3bf41cfa3b2}{bioma\+\_\+set\+\_\+region}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma, char \texorpdfstring{$\ast$}{*}region)
+\item 
+void \mbox{\hyperlink{bioma_8h_aa9b9f3c1b1cd9f166381a65018fd688c}{bioma\+\_\+set\+\_\+id}} (\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}bioma, int id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bioma_8h_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}\label{bioma_8h_ae2ffeaf3e64be6e0d0c127fb92f7c5d9} 
+\index{bioma.h@{bioma.h}!bioma\_free@{bioma\_free}}
+\index{bioma\_free@{bioma\_free}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_free()}{bioma\_free()}}
+{\footnotesize\ttfamily void bioma\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma }\end{DoxyParamCaption})}
+
+Libera la memoria usada por un Bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00031}{31}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}})}
+\DoxyCodeLine{00033\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}});}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}})}
+\DoxyCodeLine{00035\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}});}
+\DoxyCodeLine{00036\ \ \ free(bioma);}
+\DoxyCodeLine{00037\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_af779a15950086108efce0d67bf81169e}\label{bioma_8h_af779a15950086108efce0d67bf81169e} 
+\index{bioma.h@{bioma.h}!bioma\_id@{bioma\_id}}
+\index{bioma\_id@{bioma\_id}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_id()}{bioma\_id()}}
+{\footnotesize\ttfamily int bioma\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma }\end{DoxyParamCaption})}
+
+Devuelve el identificador del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el identificador. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00050}{50}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}};}
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_a4b66d1e4ba6a2c826494e3007372ce40}\label{bioma_8h_a4b66d1e4ba6a2c826494e3007372ce40} 
+\index{bioma.h@{bioma.h}!bioma\_new@{bioma\_new}}
+\index{bioma\_new@{bioma\_new}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_new()}{bioma\_new()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*} bioma\+\_\+new (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{nombre,  }\item[{char \texorpdfstring{$\ast$}{*}}]{region,  }\item[{int}]{id }\end{DoxyParamCaption})}
+
+Crea un nuevo Bioma. 
+\begin{DoxyParams}{Parameters}
+{\em nombre} & el nombre. \\
+\hline
+{\em region} & la región. \\
+\hline
+{\em id} & el identificador. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00014}{14}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{comment}{/*\ Reservación\ en\ el\ heap.\ */}}
+\DoxyCodeLine{00016\ \ \ \mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structBioma__}{Bioma\_}}));}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \textcolor{comment}{/*\ Inicialización\ del\ heap.\ */}}
+\DoxyCodeLine{00019\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(nombre,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{00020\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}},\ nombre);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(region,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{00023\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}},\ region);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}}\ =\ id;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordflow}{return}\ bioma;}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_ab40e8c94343157ba5941cbf4307024d4}\label{bioma_8h_ab40e8c94343157ba5941cbf4307024d4} 
+\index{bioma.h@{bioma.h}!bioma\_nombre@{bioma\_nombre}}
+\index{bioma\_nombre@{bioma\_nombre}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_nombre()}{bioma\_nombre()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} bioma\+\_\+nombre (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma }\end{DoxyParamCaption})}
+
+Devuelve el nombre del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el nombre. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00040}{40}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}};}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_ac216013e87ba8e3819df7eb4a3f03f59}\label{bioma_8h_ac216013e87ba8e3819df7eb4a3f03f59} 
+\index{bioma.h@{bioma.h}!bioma\_region@{bioma\_region}}
+\index{bioma\_region@{bioma\_region}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_region()}{bioma\_region()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} bioma\+\_\+region (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma }\end{DoxyParamCaption})}
+
+Devuelve la región del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la región. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00045}{45}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}};}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_aa9b9f3c1b1cd9f166381a65018fd688c}\label{bioma_8h_aa9b9f3c1b1cd9f166381a65018fd688c} 
+\index{bioma.h@{bioma.h}!bioma\_set\_id@{bioma\_set\_id}}
+\index{bioma\_set\_id@{bioma\_set\_id}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_set\_id()}{bioma\_set\_id()}}
+{\footnotesize\ttfamily void bioma\+\_\+set\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma,  }\item[{int}]{id }\end{DoxyParamCaption})}
+
+Asigna el identificador del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+{\em id} & el identificador. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00071}{71}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}}\ =\ id;}
+\DoxyCodeLine{00073\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_a1f4a1c652ea265dcecf955e657691ea4}\label{bioma_8h_a1f4a1c652ea265dcecf955e657691ea4} 
+\index{bioma.h@{bioma.h}!bioma\_set\_nombre@{bioma\_set\_nombre}}
+\index{bioma\_set\_nombre@{bioma\_set\_nombre}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_set\_nombre()}{bioma\_set\_nombre()}}
+{\footnotesize\ttfamily void bioma\+\_\+set\+\_\+nombre (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma,  }\item[{char \texorpdfstring{$\ast$}{*}}]{nombre }\end{DoxyParamCaption})}
+
+Asigna el nombre del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+{\em nombre} & el nombre. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00055}{55}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}})}
+\DoxyCodeLine{00057\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}});}
+\DoxyCodeLine{00058\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(nombre,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{00059\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}},\ nombre);}
+\DoxyCodeLine{00060\ \}}
+
+\end{DoxyCode}
+\Hypertarget{bioma_8h_a156beaa26844f6f187ead3bf41cfa3b2}\label{bioma_8h_a156beaa26844f6f187ead3bf41cfa3b2} 
+\index{bioma.h@{bioma.h}!bioma\_set\_region@{bioma\_set\_region}}
+\index{bioma\_set\_region@{bioma\_set\_region}!bioma.h@{bioma.h}}
+\doxysubsubsection{\texorpdfstring{bioma\_set\_region()}{bioma\_set\_region()}}
+{\footnotesize\ttfamily void bioma\+\_\+set\+\_\+region (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a4e453a8dfac01558314741e9627448a8}{Bioma}} \texorpdfstring{$\ast$}{*}}]{bioma,  }\item[{char \texorpdfstring{$\ast$}{*}}]{region }\end{DoxyParamCaption})}
+
+Asigna la región del bioma. 
+\begin{DoxyParams}{Parameters}
+{\em bioma} & el bioma. \\
+\hline
+{\em region} & la región. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{bioma_8c_source_l00063}{63}} of file \mbox{\hyperlink{bioma_8c_source}{bioma.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}})}
+\DoxyCodeLine{00065\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}});}
+\DoxyCodeLine{00066\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(region,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{00067\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}},\ region);}
+\DoxyCodeLine{00068\ \}}
+
+\end{DoxyCode}

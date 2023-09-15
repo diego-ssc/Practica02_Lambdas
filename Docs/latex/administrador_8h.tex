@@ -1,0 +1,349 @@
+\doxysection{SRC/administrador.h File Reference}
+\hypertarget{administrador_8h}{}\label{administrador_8h}\index{SRC/administrador.h@{SRC/administrador.h}}
+{\ttfamily \#include "{}sistema.\+h"{}}\newline
+{\ttfamily \#include "{}entidad.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{administrador_8h_abde707ce8c50546a0ff74408c67736a2}{administrador\+\_\+new}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}archivos, int n)
+\item 
+void \mbox{\hyperlink{administrador_8h_a63e801efef3f17b8a34e2fb4b930f5ee}{administrador\+\_\+free}} (\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}administrador)
+\item 
+void \mbox{\hyperlink{administrador_8h_a405ba860f9aa50b1418b669937dfc8e6}{administrador\+\_\+agrega}} (\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}administrador, void \texorpdfstring{$\ast$}{*}entidad, enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}} e)
+\item 
+void \mbox{\hyperlink{administrador_8h_ad94689ce03dde7dfd251f7c124c896cc}{administrador\+\_\+elimina}} (\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}administrador, void \texorpdfstring{$\ast$}{*}entidad, enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}} e)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{administrador_8h_aa2ec629502cecee5067bbc7ebdc9086a}{administrador\+\_\+consulta}} (\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}administrador, int id, enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}} e)
+\item 
+void \mbox{\hyperlink{administrador_8h_a548bd2f724799135dd72a1164556dde4}{administrador\+\_\+edita}} (\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}administrador, void \texorpdfstring{$\ast$}{*}entidad, enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}} e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{administrador_8h_a405ba860f9aa50b1418b669937dfc8e6}\label{administrador_8h_a405ba860f9aa50b1418b669937dfc8e6} 
+\index{administrador.h@{administrador.h}!administrador\_agrega@{administrador\_agrega}}
+\index{administrador\_agrega@{administrador\_agrega}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_agrega()}{administrador\_agrega()}}
+{\footnotesize\ttfamily void administrador\+\_\+agrega (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}}]{administrador,  }\item[{void \texorpdfstring{$\ast$}{*}}]{entidad,  }\item[{enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}}}]{e }\end{DoxyParamCaption})}
+
+Agrega el Animal parámetro a la base de datos. 
+\begin{DoxyParams}{Parameters}
+{\em administrador} & el administrador. \\
+\hline
+{\em entidad} & la entidad. \\
+\hline
+{\em e} & el enum correspondiente a la entidad. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{administrador_8c_source_l00077}{77}} of file \mbox{\hyperlink{administrador_8c_source}{administrador.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordflow}{if}\ (!entidad)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tEntidad\ no\ válida\(\backslash\)n"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}\ =\ fopen(*(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ e),\ \textcolor{stringliteral}{"{}a"{}});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordflow}{if}\ (!administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}})\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tNo\ se\ pudo\ abrir\ el\ archivo:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ e));}
+\DoxyCodeLine{00087\ \ \ \ \ exit(1);}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{switch}\ (e)\ \{}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a670864ae4db1466215efeed036defafb}{ANIMAL}}:}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{structAnimal__}{Animal}}*\ animal\ =\ (\mbox{\hyperlink{structAnimal__}{Animal}}*)entidad;}
+\DoxyCodeLine{00093\ \ \ \ \ fprintf(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}},\ \textcolor{stringliteral}{"{}\%d,\%d,\%s,\%s,\%s\(\backslash\)n"{}},\ \mbox{\hyperlink{animal_8c_af4f58cebe6bb82cdf1b36c31a38efaa5}{animal\_id}}(animal),\ \mbox{\hyperlink{animal_8c_a91f49efe1ecd539c80a6ab6f43a5cbf3}{animal\_bioma}}(animal),}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{animal_8c_a975ec449ac8f71a95fcf4067c6f4d75b}{animal\_fecha\_nacimiento}}(animal),\ \mbox{\hyperlink{animal_8c_a906638af84f36734579796d1bee37f9b}{animal\_nombre}}(animal),\ \mbox{\hyperlink{animal_8c_a7855bd22a9f91c8770ec735020faf5bf}{animal\_especie}}(animal));}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a182737622ae8a1d6aeb1ed7df26ad539}{BIOMA}}:}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma\ =\ (\mbox{\hyperlink{structBioma__}{Bioma}}*)entidad;}
+\DoxyCodeLine{00098\ \ \ \ \ fprintf(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}},\ \textcolor{stringliteral}{"{}\%d,\%s,\%s\(\backslash\)n"{}},\ \mbox{\hyperlink{bioma_8c_af779a15950086108efce0d67bf81169e}{bioma\_id}}(bioma),\ \mbox{\hyperlink{bioma_8c_ab40e8c94343157ba5941cbf4307024d4}{bioma\_nombre}}(bioma),}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bioma_8c_ac216013e87ba8e3819df7eb4a3f03f59}{bioma\_region}}(bioma));}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a098e7c1b931ba0a5a3a43df4aab1d6ed}{VETERINARIO}}:}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario\ =\ (\mbox{\hyperlink{structVeterinario__}{Veterinario}}*)entidad;}
+\DoxyCodeLine{00103\ \ \ \ \ fprintf(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}},\ \textcolor{stringliteral}{"{}\%d,\%d,\%s,\%d,\%s,\%s\(\backslash\)n"{}},\ \mbox{\hyperlink{veterinario_8c_aa348bbb0f6fa91a9f006baec7466ae23}{veterinario\_id}}(veterinario),}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{veterinario_8c_afd588d7c5fd733fe557ad1456e272b41}{veterinario\_esp}}(veterinario),\ \mbox{\hyperlink{veterinario_8c_ace6b59f3bfb6292ec2b3a1cac466dd95}{veterinario\_nombre}}(veterinario),}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{veterinario_8c_ab59d419a966a2df8de44117ff3fb38e5}{veterinario\_jornada}}(veterinario),\ \mbox{\hyperlink{veterinario_8c_a4b307a2406b7fa80189b98af5c8f44a1}{veterinario\_correo}}(veterinario),}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{veterinario_8c_a7d7f98291fe1cebab6bd24ea146265a5}{veterinario\_fecha\_nacimiento}}(veterinario));}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00108\ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ fclose(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}});}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ ++*(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}\ +\ e);}
+\DoxyCodeLine{00113\ \}}
+
+\end{DoxyCode}
+\Hypertarget{administrador_8h_aa2ec629502cecee5067bbc7ebdc9086a}\label{administrador_8h_aa2ec629502cecee5067bbc7ebdc9086a} 
+\index{administrador.h@{administrador.h}!administrador\_consulta@{administrador\_consulta}}
+\index{administrador\_consulta@{administrador\_consulta}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_consulta()}{administrador\_consulta()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} administrador\+\_\+consulta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}}]{administrador,  }\item[{int}]{id,  }\item[{enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}}}]{e }\end{DoxyParamCaption})}
+
+Consulta la entidad parámetro de la base de datos. 
+\begin{DoxyParams}{Parameters}
+{\em administrador} & el administrador. \\
+\hline
+{\em id} & el identificador. \\
+\hline
+{\em e} & el enum asociado a la entidad. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la entidad. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{administrador_8c_source_l00141}{141}} of file \mbox{\hyperlink{administrador_8c_source}{administrador.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ }
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{/*\ Abrimos\ el\ archivo\ correspondiente\ */}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{char}*\ archivo\ =\ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ entidad);}
+\DoxyCodeLine{00145\ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}\ =\ fopen(archivo,\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{00146\ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}+entidad));}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordtype}{id}\ >\ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}+entidad))\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00149\ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \textcolor{comment}{/*\ Información\ del\ archivo.\ */}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{struct\ }stat\ s;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{comment}{/*\ El\ archivo\ mapeado.\ */}}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{char}*\ m;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordflow}{if}\ (!administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}})\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tNo\ se\ pudo\ abrir\ el\ archivo:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ archivo);}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00161\ \ \ \}}
+\DoxyCodeLine{00162\ \ \ }
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordflow}{if}\ (0\ >\ fstat(fileno(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}),\ \&s))\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tNo\ se\ pudo\ obtener\ el\ tamaño\ del\ archivo:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ archivo);}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00167\ \ \ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ m\ =\ mmap(0,\ s.st\_size,\ PROT\_READ,\ MAP\_PRIVATE,\ fileno(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}),\ 0);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordflow}{if}\ (MAP\_FAILED\ ==\ m)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tError\ al\ mapear:\ \%s\(\backslash\)n"{}},\ archivo);}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00174\ \ \ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00177\ \ \ \textcolor{keywordtype}{int}\ b\ =\ busqueda\_binaria\_map(m,\ \textcolor{keywordtype}{id},\ s.st\_size);}
+\DoxyCodeLine{00178\ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ b);}
+\DoxyCodeLine{00179\ \ \ printf(\textcolor{stringliteral}{"{}There:\ \%c\%c\%c\%c\%c\(\backslash\)n"{}},\ *(m+b),\ *(m+b+1),\ *(m+b+2),}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ *(m+b+3),\ *(m+b+4));}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{comment}{/*\ Cantidad\ de\ chars\ en\ la\ linea\ */}}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00184\ \ \ \textcolor{keywordflow}{while}\ (*(m+b+i)\ !=\ \textcolor{charliteral}{'\(\backslash\)n'})\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}\ ((m+b+i)\ ==\ (m+s.st\_size-\/1))}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00187\ \ \ \ \ i++;}
+\DoxyCodeLine{00188\ \ \ \}}
+\DoxyCodeLine{00189\ \ }
+\DoxyCodeLine{00190\ \ \ printf(\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ i);}
+\DoxyCodeLine{00191\ \ \ }
+\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{char}*\ datos\ =\ malloc((i+1)*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{00193\ \ \ }
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ i;\ j++\ )\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ datos[j]\ =\ *(m+b+j);}
+\DoxyCodeLine{00196\ \ \ \}}
+\DoxyCodeLine{00197\ \ \ datos[i]=\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00198\ \ \ printf(\textcolor{stringliteral}{"{}Datos:\ \%s\(\backslash\)n"{}},\ datos);}
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordflow}{switch}\ (entidad)\ \{}
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a670864ae4db1466215efeed036defafb}{ANIMAL}}:}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{animal_8c_a2793046f5a144419b7d381518635e66b}{animal\_new}}(atoi(strtok(datos,\ \textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atoi(strtok(NULL,\ \textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}),}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}),}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}));}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00208\ \ \ \ \ }
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a182737622ae8a1d6aeb1ed7df26ad539}{BIOMA}}:}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{char}*\ p;}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{char}*\ nombre;}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{char}*\ region;}
+\DoxyCodeLine{00214\ \ \ \ \ p\ =\ strtok(datos,\ \textcolor{stringliteral}{"{},"{}});}
+\DoxyCodeLine{00215\ \ \ \ \ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{if}\ (!p)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema1:\(\backslash\)tError\ al\ leer\ datos\ en\ el\ archivo:\ \%s\(\backslash\)n"{}},\ archivo);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{id}\ =\ atoi(p);}
+\DoxyCodeLine{00222\ \ \ \ \ p\ =\ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}});}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (!p)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema1:\(\backslash\)tError\ al\ leer\ datos\ en\ el\ archivo:\ \%s\(\backslash\)n"{}},\ archivo);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ nombre\ =\ p;}
+\DoxyCodeLine{00228\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Nombre:\ \%s\(\backslash\)n"{}},\ nombre);}
+\DoxyCodeLine{00229\ \ \ \ \ p\ =\ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}});}
+\DoxyCodeLine{00230\ \ \ \ \textcolor{keywordflow}{if}\ (!p)\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema1:\(\backslash\)tError\ al\ leer\ datos\ en\ el\ archivo:\ \%s\(\backslash\)n"{}},\ archivo);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00233\ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ region\ =\ p;}
+\DoxyCodeLine{00235\ \ \ \ \ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{bioma_8c_a4b66d1e4ba6a2c826494e3007372ce40}{bioma\_new}}(nombre,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ region,}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00240\ \ \ \ \ }
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a098e7c1b931ba0a5a3a43df4aab1d6ed}{VETERINARIO}}:}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{veterinario_8c_a9bccd97f523118e66c5c04d56095d5f4}{veterinario\_new}}(atoi(strtok(datos,\ \textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atoi(strtok(NULL,\ \textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}),}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ atoi(strtok(NULL,\ \textcolor{stringliteral}{"{},"{}})),}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}),}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strtok(NULL,\ \textcolor{stringliteral}{"{},"{}}));}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00250\ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Sistema:\(\backslash\)tEntidad\ no\ v\(\backslash\)'alida."{}});}
+\DoxyCodeLine{00251\ \ \ \}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ free(datos);}
+\DoxyCodeLine{00254\ \ \ \textcolor{comment}{/*Cerramos\ el\ archivo*/}}
+\DoxyCodeLine{00255\ \ \ fclose(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}});}
+\DoxyCodeLine{00256\ \ \ }
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00258\ \}}
+
+\end{DoxyCode}
+\Hypertarget{administrador_8h_a548bd2f724799135dd72a1164556dde4}\label{administrador_8h_a548bd2f724799135dd72a1164556dde4} 
+\index{administrador.h@{administrador.h}!administrador\_edita@{administrador\_edita}}
+\index{administrador\_edita@{administrador\_edita}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_edita()}{administrador\_edita()}}
+{\footnotesize\ttfamily void administrador\+\_\+edita (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}}]{administrador,  }\item[{void \texorpdfstring{$\ast$}{*}}]{entidad,  }\item[{enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}}}]{e }\end{DoxyParamCaption})}
+
+Edita la entidad parámetro de la base de datos. 
+\begin{DoxyParams}{Parameters}
+{\em administrador} & el administrador. \\
+\hline
+{\em entidad} & la entidad. \\
+\hline
+{\em e} & el enum asociado a la entidad. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{administrador_8h_ad94689ce03dde7dfd251f7c124c896cc}\label{administrador_8h_ad94689ce03dde7dfd251f7c124c896cc} 
+\index{administrador.h@{administrador.h}!administrador\_elimina@{administrador\_elimina}}
+\index{administrador\_elimina@{administrador\_elimina}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_elimina()}{administrador\_elimina()}}
+{\footnotesize\ttfamily void administrador\+\_\+elimina (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}}]{administrador,  }\item[{void \texorpdfstring{$\ast$}{*}}]{entidad,  }\item[{enum \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878}{Entidad}}}]{e }\end{DoxyParamCaption})}
+
+Elimina la entidad parámetro de la base de datos. 
+\begin{DoxyParams}{Parameters}
+{\em administrador} & el administrador. \\
+\hline
+{\em entidad} & la entidad. \\
+\hline
+{\em e} & el enum asociado a la entidad. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{administrador_8h_a63e801efef3f17b8a34e2fb4b930f5ee}\label{administrador_8h_a63e801efef3f17b8a34e2fb4b930f5ee} 
+\index{administrador.h@{administrador.h}!administrador\_free@{administrador\_free}}
+\index{administrador\_free@{administrador\_free}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_free()}{administrador\_free()}}
+{\footnotesize\ttfamily void administrador\+\_\+free (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*}}]{administrador }\end{DoxyParamCaption})}
+
+Libera la memoria usada por un Administrador. 
+\begin{DoxyParams}{Parameters}
+{\em administrador} & el administrador. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{administrador_8c_source_l00063}{63}} of file \mbox{\hyperlink{administrador_8c_source}{administrador.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordflow}{if}\ (administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}})\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{while}\ (n-\/-\/)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ free(*(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1)));}
+\DoxyCodeLine{00068\ \ \ \ \ free\ (administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}});}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{if}\ (administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}})}
+\DoxyCodeLine{00072\ \ \ \ \ free(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}});}
+\DoxyCodeLine{00073\ \ \ free(administrador);}
+\DoxyCodeLine{00074\ \}}
+
+\end{DoxyCode}
+\Hypertarget{administrador_8h_abde707ce8c50546a0ff74408c67736a2}\label{administrador_8h_abde707ce8c50546a0ff74408c67736a2} 
+\index{administrador.h@{administrador.h}!administrador\_new@{administrador\_new}}
+\index{administrador\_new@{administrador\_new}!administrador.h@{administrador.h}}
+\doxysubsubsection{\texorpdfstring{administrador\_new()}{administrador\_new()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{sistema_8h_a69dd0b485dfa0c83482336380ef19825}{Administrador}} \texorpdfstring{$\ast$}{*} administrador\+\_\+new (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{archivos,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+Construye un nuevo Administrador. 
+\begin{DoxyParams}{Parameters}
+{\em archivos} & los nombres de los archivos. \\
+\hline
+{\em n} & el número de archivos. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{administrador_8c_source_l00020}{20}} of file \mbox{\hyperlink{administrador_8c_source}{administrador.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \textcolor{comment}{/*\ Reservación\ en\ heap.\ */}}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{structAdministrador__}{Administrador}}*\ administrador\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structAdministrador__}{Administrador\_}}));}
+\DoxyCodeLine{00023\ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ \ \ \ \ \ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}*)*n);}
+\DoxyCodeLine{00024\ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}\ \ \ \ =\ calloc(1,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})*n);}
+\DoxyCodeLine{00025\ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ n;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \textcolor{comment}{/*\ Inicialización\ del\ heap.\ */}}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordflow}{while}\ (n-\/-\/)}
+\DoxyCodeLine{00029\ \ \ \ \ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1))\ =}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(*(archivos\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1)),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ n\ =\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}};}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordflow}{while}\ (n-\/-\/)}
+\DoxyCodeLine{00035\ \ \ \ \ strcpy(*(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1)),}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ (*(archivos\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1))));}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{/*\ Se\ comenzará\ con\ índice\ 1.\ */}}
+\DoxyCodeLine{00039\ \ \ n\ =\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}};}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{while}\ (n-\/-\/)}
+\DoxyCodeLine{00041\ \ \ \ \ ++*(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}\ +\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}}-\/(n+1));}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{comment}{/*Contamos\ el\ numero\ de\ entidades\ ya\ existentes\ en\ los\ archivos*/}}
+\DoxyCodeLine{00044\ \ \ \ n\ =\ administrador-\/>\mbox{\hyperlink{structAdministrador___a79aba3a69d53a8620844570607fc3711}{n}};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{char}\ buff[101];}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordflow}{while}\ (n-\/-\/)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}\ =\ fopen(*(administrador-\/>\mbox{\hyperlink{structAdministrador___a778d11f89cf8c6fe0827845ff4ad9ef9}{archivos}}\ +\ n),\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{while}\ (fgets(buff,\ \mbox{\hyperlink{sistema_8h_a66bb37c56e6a1445395ec6f74be806ff}{TAMANO\_LINEA}},\ administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}}))\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ *(administrador-\/>\mbox{\hyperlink{structAdministrador___a921167d58d295e280c50fb1fbecc1b89}{cantidades}}\ +\ n)\ =\ i+1;}
+\DoxyCodeLine{00053\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d:\%d\(\backslash\)n"{}},n,\ i);}
+\DoxyCodeLine{00054\ \ \ \ \ fclose(administrador-\/>\mbox{\hyperlink{structAdministrador___aa68a82e078937e54aaa5668c4986f6a1}{fp}});}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordflow}{return}\ administrador;}
+\DoxyCodeLine{00060\ \}}
+
+\end{DoxyCode}

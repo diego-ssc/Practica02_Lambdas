@@ -1,0 +1,79 @@
+\doxysection{bioma.\+c}
+\hypertarget{bioma_8c_source}{}\label{bioma_8c_source}\index{SRC/bioma.c@{SRC/bioma.c}}
+\mbox{\hyperlink{bioma_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bioma_8h}{bioma.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00003}00003\ \textcolor{comment}{/*\ La\ estructura\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00004}\mbox{\hyperlink{structBioma__}{00004}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBioma__}{Bioma\_}}\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00005}00005\ \ \ \textcolor{comment}{/*\ El\ nombre.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00006}\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{00006}}\ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00007}00007\ \ \ \textcolor{comment}{/*\ La\ región.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00008}\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{00008}}\ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00009}00009\ \ \ \textcolor{comment}{/*\ El\ identificador.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00010}\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{00010}}\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00011}00011\ \};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00013}00013\ \textcolor{comment}{/*\ Crea\ un\ nuevo\ Bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00014}\mbox{\hyperlink{bioma_8c_a4b66d1e4ba6a2c826494e3007372ce40}{00014}}\ \mbox{\hyperlink{structBioma__}{Bioma}}*\ \mbox{\hyperlink{bioma_8c_a4b66d1e4ba6a2c826494e3007372ce40}{bioma\_new}}(\textcolor{keywordtype}{char}*\ nombre,\ \textcolor{keywordtype}{char}*\ region,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00015}00015\ \ \ \textcolor{comment}{/*\ Reservación\ en\ el\ heap.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00016}00016\ \ \ \mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structBioma__}{Bioma\_}}));}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00018}00018\ \ \ \textcolor{comment}{/*\ Inicialización\ del\ heap.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00019}00019\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(nombre,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00020}00020\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}},\ nombre);}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00022}00022\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(region,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00023}00023\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}},\ region);}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00025}00025\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}}\ =\ id;}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00027}00027\ \ \ \textcolor{keywordflow}{return}\ bioma;}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00028}00028\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00030}00030\ \textcolor{comment}{/*\ Libera\ la\ memoria\ usada\ por\ un\ Bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00031}\mbox{\hyperlink{bioma_8c_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}{00031}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bioma_8c_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}{bioma\_free}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00032}00032\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}})}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00033}00033\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}});}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00034}00034\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}})}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00035}00035\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}});}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00036}00036\ \ \ free(bioma);}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00037}00037\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00039}00039\ \textcolor{comment}{/*\ Devuelve\ el\ nombre\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00040}\mbox{\hyperlink{bioma_8c_ab40e8c94343157ba5941cbf4307024d4}{00040}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{bioma_8c_ab40e8c94343157ba5941cbf4307024d4}{bioma\_nombre}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00041}00041\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00044}00044\ \textcolor{comment}{/*\ Devuelve\ la\ región\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00045}\mbox{\hyperlink{bioma_8c_ac216013e87ba8e3819df7eb4a3f03f59}{00045}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{bioma_8c_ac216013e87ba8e3819df7eb4a3f03f59}{bioma\_region}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00046}00046\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00049}00049\ \textcolor{comment}{/*\ Devuelve\ el\ identificador\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00050}\mbox{\hyperlink{bioma_8c_af779a15950086108efce0d67bf81169e}{00050}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bioma_8c_af779a15950086108efce0d67bf81169e}{bioma\_id}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00051}00051\ \ \ \textcolor{keywordflow}{return}\ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}};}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00054}00054\ \textcolor{comment}{/*\ Asigna\ el\ nombre\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00055}\mbox{\hyperlink{bioma_8c_a1f4a1c652ea265dcecf955e657691ea4}{00055}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bioma_8c_a1f4a1c652ea265dcecf955e657691ea4}{bioma\_set\_nombre}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma,\ \textcolor{keywordtype}{char}*\ nombre)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00056}00056\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}})}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00057}00057\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}});}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00058}00058\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(nombre,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00059}00059\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a5541ebe643992791801f51cf1dff0d22}{nombre}},\ nombre);}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00060}00060\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00062}00062\ \textcolor{comment}{/*\ Asigna\ la\ región\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00063}\mbox{\hyperlink{bioma_8c_a156beaa26844f6f187ead3bf41cfa3b2}{00063}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bioma_8c_a156beaa26844f6f187ead3bf41cfa3b2}{bioma\_set\_region}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma,\ \textcolor{keywordtype}{char}*\ region)\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00064}00064\ \ \ \textcolor{keywordflow}{if}\ (bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}})}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00065}00065\ \ \ \ \ free(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}});}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00066}00066\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(region,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00067}00067\ \ \ strcpy(bioma-\/>\mbox{\hyperlink{structBioma___a8a83b360530a470acf179197ef6065cd}{region}},\ region);}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00070}00070\ \textcolor{comment}{/*\ Asigna\ el\ identificador\ del\ bioma.\ */}}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00071}\mbox{\hyperlink{bioma_8c_aa9b9f3c1b1cd9f166381a65018fd688c}{00071}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bioma_8c_aa9b9f3c1b1cd9f166381a65018fd688c}{bioma\_set\_id}}(\mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00072}00072\ \ \ bioma-\/>\mbox{\hyperlink{structBioma___a66dd5c7c4c9f56712acedd773e5ab1e3}{id}}\ =\ id;}
+\DoxyCodeLine{\Hypertarget{bioma_8c_source_l00073}00073\ \}}
+
+\end{DoxyCode}

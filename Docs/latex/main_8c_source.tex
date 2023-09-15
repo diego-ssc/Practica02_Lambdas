@@ -1,0 +1,45 @@
+\doxysection{main.\+c}
+\hypertarget{main_8c_source}{}\label{main_8c_source}\index{SRC/main.c@{SRC/main.c}}
+\mbox{\hyperlink{main_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sistema_8h}{sistema.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{entidad_8h}{entidad.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00007}\mbox{\hyperlink{main_8c_ae3d367c73db924f37383517febd9ed0b}{00007}}\ \textcolor{preprocessor}{\#define\ NUMERO\_ENTIDADES\ 3}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00008}00008\ \textcolor{preprocessor}{\#define\ NUMERO\_ENTIDADES\ 3}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00010}00010\ \textcolor{comment}{/*\ Hilo\ de\ ejecución\ principal.\ */}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00011}\mbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00011}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}**\ argv)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00012}00012\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ archivos[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00013}00013\ \ \ \ \ \textcolor{stringliteral}{"{}animal.csv"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00014}00014\ \ \ \ \ \textcolor{stringliteral}{"{}bioma.csv"{}},}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00015}00015\ \ \ \ \ \textcolor{stringliteral}{"{}veterinario.csv"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00016}00016\ \ \ \};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019\ \ \ \mbox{\hyperlink{structAdministrador__}{Administrador}}*\ administrador\ =\ \mbox{\hyperlink{administrador_8c_abde707ce8c50546a0ff74408c67736a2}{administrador\_new}}(archivos,}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{main_8c_ae3d367c73db924f37383517febd9ed0b}{NUMERO\_ENTIDADES}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022\ \ \ \mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma\ =\ \mbox{\hyperlink{bioma_8c_a4b66d1e4ba6a2c826494e3007372ce40}{bioma\_new}}(\textcolor{stringliteral}{"{}nombre"{}},\ \textcolor{stringliteral}{"{}region"{}},\ 1);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023\ \ \ \mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ vet\ =\ \mbox{\hyperlink{veterinario_8c_a9bccd97f523118e66c5c04d56095d5f4}{veterinario\_new}}(1,\ 0,\ \textcolor{stringliteral}{"{}nombre"{}},\ 0,\ \textcolor{stringliteral}{"{}correo"{}},\ \textcolor{stringliteral}{"{}fecha"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024\ \ \ \mbox{\hyperlink{structAnimal__}{Animal}}*\ animal\ =\ \mbox{\hyperlink{animal_8c_a2793046f5a144419b7d381518635e66b}{animal\_new}}(1,\ 1,\ \textcolor{stringliteral}{"{}fecha"{}},\ \textcolor{stringliteral}{"{}nombre"{}},\ \textcolor{stringliteral}{"{}especie"{}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025\ \ \ \textcolor{comment}{//administrador\_agrega(administrador,\ bioma,\ BIOMA);}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026\ \ \ \mbox{\hyperlink{administrador_8c_a405ba860f9aa50b1418b669937dfc8e6}{administrador\_agrega}}(administrador,\ vet,\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a098e7c1b931ba0a5a3a43df4aab1d6ed}{VETERINARIO}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027\ \ \ \mbox{\hyperlink{administrador_8c_a405ba860f9aa50b1418b669937dfc8e6}{administrador\_agrega}}(administrador,\ animal,\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a670864ae4db1466215efeed036defafb}{ANIMAL}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028\ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029\ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030\ \ \ \mbox{\hyperlink{structBioma__}{Bioma}}*\ bioma1\ =\ \mbox{\hyperlink{administrador_8c_a101e7048fb8f09617701ff29bffdc2b0}{administrador\_consulta}}(administrador,\ 5,\ \mbox{\hyperlink{entidad_8h_a26355036c570fba87e88470fdbd0f878a182737622ae8a1d6aeb1ed7df26ad539}{BIOMA}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031\ \ \ \textcolor{keywordflow}{if}\ (bioma1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d,\%s\(\backslash\)n"{}},\ \mbox{\hyperlink{bioma_8c_af779a15950086108efce0d67bf81169e}{bioma\_id}}(bioma1),\ \mbox{\hyperlink{bioma_8c_ab40e8c94343157ba5941cbf4307024d4}{bioma\_nombre}}(bioma1));}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033\ \ \ \mbox{\hyperlink{bioma_8c_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}{bioma\_free}}(bioma);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034\ \ \ \textcolor{keywordflow}{if}\ (bioma1)}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{bioma_8c_ae2ffeaf3e64be6e0d0c127fb92f7c5d9}{bioma\_free}}(bioma1);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036\ \ \ \mbox{\hyperlink{administrador_8c_a63e801efef3f17b8a34e2fb4b930f5ee}{administrador\_free}}(administrador);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039\ \}}
+
+\end{DoxyCode}

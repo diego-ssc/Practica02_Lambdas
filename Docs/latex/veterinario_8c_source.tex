@@ -1,0 +1,134 @@
+\doxysection{veterinario.\+c}
+\hypertarget{veterinario_8c_source}{}\label{veterinario_8c_source}\index{SRC/veterinario.c@{SRC/veterinario.c}}
+\mbox{\hyperlink{veterinario_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{veterinario_8h}{veterinario.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00003}00003\ \textcolor{comment}{/*\ La\ estructura\ Veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00004}\mbox{\hyperlink{structVeterinario__}{00004}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structVeterinario__}{Veterinario\_}}\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00005}00005\ \ \ \textcolor{comment}{/*\ El\ identificador.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00006}\mbox{\hyperlink{structVeterinario___a356301a73df9902f195385a8f98026ed}{00006}}\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVeterinario___a356301a73df9902f195385a8f98026ed}{id}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00007}00007\ \ \ \textcolor{comment}{/*\ La\ especialidad.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00008}\mbox{\hyperlink{structVeterinario___a452b99baaeaba4beb0b8b396079ff9e4}{00008}}\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVeterinario___a452b99baaeaba4beb0b8b396079ff9e4}{esp}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00009}00009\ \ \ \textcolor{comment}{/*\ El\ nombre.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00010}\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{00010}}\ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00011}00011\ \ \ \textcolor{comment}{/*\ La\ jornada.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00012}\mbox{\hyperlink{structVeterinario___a88dc4502889d95b882a7dd0fe32e3edd}{00012}}\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structVeterinario___a88dc4502889d95b882a7dd0fe32e3edd}{jornada}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00013}00013\ \ \ \textcolor{comment}{/*\ El\ correo\ electrónico.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00014}\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{00014}}\ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00015}00015\ \ \ \textcolor{comment}{/*\ La\ fecha\ de\ nacimiento.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00016}\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{00016}}\ \ \ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00017}00017\ \};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00019}00019\ \textcolor{comment}{/*\ Los\ tipos\ de\ jornada.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00020}00020\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00021}\mbox{\hyperlink{veterinario_8c_a06fc87d81c62e9abb8790b6e5713c55bae41c38f92dfd7ef8b936b3f2a2d34615}{00021}}\ \ \ \mbox{\hyperlink{veterinario_8c_a06fc87d81c62e9abb8790b6e5713c55bae41c38f92dfd7ef8b936b3f2a2d34615}{MEDIO\_TIEMPO}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00022}00022\ \ \ \mbox{\hyperlink{veterinario_8c_a06fc87d81c62e9abb8790b6e5713c55ba2b6a069de2c495fc57f11e0b5b4d8ea0}{TIEMPO\_COMPLETO}}\ =\ 1}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00023}\mbox{\hyperlink{veterinario_8c_a06fc87d81c62e9abb8790b6e5713c55ba2b6a069de2c495fc57f11e0b5b4d8ea0}{00023}}\ \};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00034}\mbox{\hyperlink{veterinario_8c_a9bccd97f523118e66c5c04d56095d5f4}{00034}}\ \mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ \mbox{\hyperlink{veterinario_8c_a9bccd97f523118e66c5c04d56095d5f4}{veterinario\_new}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ esp,\ \textcolor{keywordtype}{char}*\ nombre,\ \textcolor{keywordtype}{int}\ jornada,}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ correo,\ \textcolor{keywordtype}{char}*\ fecha\_nacimiento)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00036}00036\ \ \ \textcolor{comment}{/*\ Reservación\ en\ el\ heap.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00037}00037\ \ \ \mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structVeterinario__}{Veterinario\_}}));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00039}00039\ \ \ \textcolor{comment}{/*\ Inicialización\ del\ heap.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00040}00040\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a356301a73df9902f195385a8f98026ed}{id}}\ \ \ \ \ \ =\ id;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00041}00041\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a452b99baaeaba4beb0b8b396079ff9e4}{esp}}\ \ \ \ \ =\ esp;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00042}00042\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a88dc4502889d95b882a7dd0fe32e3edd}{jornada}}\ =\ jornada;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00044}00044\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}}\ \ \ \ \ \ \ \ \ \ \ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (strnlen(nombre,}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00047}00047\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}}\ \ \ \ \ \ \ \ \ \ \ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (strnlen(correo,}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00050}00050\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (strnlen(fecha\_nacimiento,}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00053}00053\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}},\ nombre);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00054}00054\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}},\ correo);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00055}00055\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}},\ fecha\_nacimiento);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00057}00057\ \ \ \textcolor{keywordflow}{return}\ veterinario;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00058}00058\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00064}\mbox{\hyperlink{veterinario_8c_a93a985c4b9174524a226d76748f2554b}{00064}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_a93a985c4b9174524a226d76748f2554b}{veterinario\_free}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00065}00065\ \ \ \textcolor{keywordflow}{if}\ (veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00066}00066\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00067}00067\ \ \ \textcolor{keywordflow}{if}\ (veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00068}00068\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00069}00069\ \ \ \textcolor{keywordflow}{if}\ (veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00070}00070\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00071}00071\ \ \ free(veterinario);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00074}00074\ \textcolor{comment}{/*\ Devuelve\ el\ número\ de\ cuenta\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00075}\mbox{\hyperlink{veterinario_8c_aa348bbb0f6fa91a9f006baec7466ae23}{00075}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{veterinario_8c_aa348bbb0f6fa91a9f006baec7466ae23}{veterinario\_id}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00076}00076\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a356301a73df9902f195385a8f98026ed}{id}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00079}00079\ \textcolor{comment}{/*\ Devuelve\ la\ especialidad\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00080}\mbox{\hyperlink{veterinario_8c_afd588d7c5fd733fe557ad1456e272b41}{00080}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{veterinario_8c_afd588d7c5fd733fe557ad1456e272b41}{veterinario\_esp}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00081}00081\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a452b99baaeaba4beb0b8b396079ff9e4}{esp}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00084}00084\ \textcolor{comment}{/*\ Devuelve\ el\ nombre\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00085}\mbox{\hyperlink{veterinario_8c_ace6b59f3bfb6292ec2b3a1cac466dd95}{00085}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{veterinario_8c_ace6b59f3bfb6292ec2b3a1cac466dd95}{veterinario\_nombre}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00086}00086\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00087}00087\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00089}00089\ \textcolor{comment}{/*\ Devuelve\ la\ jornada\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00090}\mbox{\hyperlink{veterinario_8c_ab59d419a966a2df8de44117ff3fb38e5}{00090}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{veterinario_8c_ab59d419a966a2df8de44117ff3fb38e5}{veterinario\_jornada}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00091}00091\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a88dc4502889d95b882a7dd0fe32e3edd}{jornada}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00092}00092\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00094}00094\ \textcolor{comment}{/*\ Devuelve\ el\ correo\ electrónico\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00095}\mbox{\hyperlink{veterinario_8c_a4b307a2406b7fa80189b98af5c8f44a1}{00095}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{veterinario_8c_a4b307a2406b7fa80189b98af5c8f44a1}{veterinario\_correo}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00096}00096\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00099}00099\ \textcolor{comment}{/*\ Devuelve\ la\ fecha\ de\ nacimiento\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00100}\mbox{\hyperlink{veterinario_8c_a7d7f98291fe1cebab6bd24ea146265a5}{00100}}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{veterinario_8c_a7d7f98291fe1cebab6bd24ea146265a5}{veterinario\_fecha\_nacimiento}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00101}00101\ \ \ \textcolor{keywordflow}{return}\ veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}};}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00102}00102\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00104}00104\ \textcolor{comment}{/*\ Asigna\ el\ número\ de\ cuenta\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00105}\mbox{\hyperlink{veterinario_8c_a87c25112b33fc933ac4ab8da60fc7b63}{00105}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_a87c25112b33fc933ac4ab8da60fc7b63}{veterinario\_set\_id}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00106}00106\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a356301a73df9902f195385a8f98026ed}{id}}\ =\ id;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00109}00109\ \textcolor{comment}{/*\ Asigna\ la\ especialidad\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00110}\mbox{\hyperlink{veterinario_8c_ac7b9c1ec2d49d954223bb8f581482f10}{00110}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_ac7b9c1ec2d49d954223bb8f581482f10}{veterinario\_set\_esp}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{int}\ esp)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00111}00111\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a452b99baaeaba4beb0b8b396079ff9e4}{esp}}\ =\ esp;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00114}00114\ \textcolor{comment}{/*\ Asigna\ el\ nombre\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00115}\mbox{\hyperlink{veterinario_8c_a81686441844bc7477e4f775ea6a92622}{00115}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_a81686441844bc7477e4f775ea6a92622}{veterinario\_set\_nombre}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{char}*\ nombre)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00116}00116\ \ \ \textcolor{keywordflow}{if}(veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00117}00117\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00118}00118\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(nombre,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00119}00119\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a1edcdfb750a7aa5067eec46a5d778d30}{nombre}},\ nombre);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00122}00122\ \textcolor{comment}{/*\ Asigna\ la\ jornada\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00123}\mbox{\hyperlink{veterinario_8c_aa4319053c2c263a4c9e743555d5416d6}{00123}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_aa4319053c2c263a4c9e743555d5416d6}{veterinario\_set\_jornada}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{int}\ jornada)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00124}00124\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a88dc4502889d95b882a7dd0fe32e3edd}{jornada}}\ =\ jornada;}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00127}00127\ \textcolor{comment}{/*\ Asigna\ el\ correo\ electrónico\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00128}\mbox{\hyperlink{veterinario_8c_a289696f3b8e90dfd7e2e28c5cadc9ed9}{00128}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_a289696f3b8e90dfd7e2e28c5cadc9ed9}{veterinario\_set\_correo}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{char}*\ correo)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00129}00129\ \ \ \textcolor{keywordflow}{if}(veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00130}00130\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00131}00131\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(correo,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00132}00132\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a670766aa9016438afc42ff22abe28242}{correo}},\ correo);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00133}00133\ \}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00135}00135\ \textcolor{comment}{/*\ Asigna\ la\ fecha\ de\ nacimiento\ del\ veterinario.\ */}}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00136}\mbox{\hyperlink{veterinario_8c_a3514388868c3c1327cc35b9e72b7dcf3}{00136}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{veterinario_8c_a3514388868c3c1327cc35b9e72b7dcf3}{veterinario\_set\_fecha\_nacimiento}}(\mbox{\hyperlink{structVeterinario__}{Veterinario}}*\ veterinario,\ \textcolor{keywordtype}{char}*\ fecha\_nacimiento)\ \{}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00137}00137\ \ \ \textcolor{keywordflow}{if}(veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}})}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00138}00138\ \ \ \ \ free(veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}});}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00139}00139\ \ \ veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}}\ =\ malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})*(strnlen(fecha\_nacimiento,\ \mbox{\hyperlink{sistema_8h_a59a9cf7f410c385f6492a9b941cf44f8}{TAMANO\_NOMBRE}})+1));}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00140}00140\ \ \ strcpy(veterinario-\/>\mbox{\hyperlink{structVeterinario___a33fe6c6289d9e5600d034d92c0a41eaa}{fecha\_nacimiento}},\ fecha\_nacimiento);}
+\DoxyCodeLine{\Hypertarget{veterinario_8c_source_l00141}00141\ \}}
+
+\end{DoxyCode}
