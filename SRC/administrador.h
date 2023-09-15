@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sistema.h"
+#include "entidad.h"
 
 /**
  * Construye un nuevo Administrador.
@@ -51,23 +52,7 @@ void administrador_elimina(Administrador* administrador, void* entidad);
  * @param id el identificador.
  * @return el animal.
  */
-Animal* administrador_consulta_a(Administrador* administrador, int id);
-
-/**
- * Consulta el Bioma parámetro de la base de datos.
- * @param administrador el administrador.
- * @param id el identificador.
- * @return el bioma.
- */
-Bioma* administrador_consulta_b(Administrador* administrador, int id);
-
-/**
- * Consulta el Veterinario parámetro de la base de datos.
- * @param administrador el administrador.
- * @param id el identificador.
- * @return el veterinario.
- */
-Veterinario* administrador_consulta_v(Administrador* administrador, int id);
+void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad);
 
 /**
  * Edita la entidad parámetro de la base de datos.

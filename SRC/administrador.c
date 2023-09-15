@@ -6,24 +6,12 @@
 
 /* La estructura Administrador. */
 struct Administrador_ {
-  /* El archivo de veterinarios. */
-  FILE* fp_v;
-  /* El archivo de biomas. */
-  FILE* fp_b;
-  /* El archivo de animales. */
-  FILE* fp_a;
-  /* El nombre de arhivo de Veterinarios. */
-  char* file_n_vet;
-  /* El nombre de arhivo de Biomas. */
-  char* file_n_bi;
-  /* El nombre de arhivo de Animales. */
-  char* file_n_an;
-  /* El número de animales. */
-  int n_a;
-  /* El número de biomas. */
-  int n_b;
-  /* El número de veterinarios. */
-  int n_v;
+  /* El archivo abierto. */
+  FILE* fp;
+  
+  char** archivos;
+  
+  int* cantidades;
 };
 
 /* Construye un Administrador. */                                   
@@ -128,7 +116,6 @@ void administrador_elimina_a(Administrador* administrador, void* entidad);
    buscada. */
 static int busqueda_binaria_map(char* map, int i, size_t file_size) {
   int j = file_size/2;
-
   while (1) {
     while (*(map + j) != '\n' && j > 0) {
       if (j == 0)
@@ -144,106 +131,123 @@ static int busqueda_binaria_map(char* map, int i, size_t file_size) {
     else
       j += TAMANO_PROMEDIO_LINEA+j/2;
   }
-
   return j+1;
 }
 
+
+
 /* Consulta el Animal de la base de datos. */
-Animal* administrador_consulta_a(Administrador* administrador, int id) {
-  if (id > administrador->n_a) {
-    fprintf(stderr, "Sistema:\tAnimal no válido\n");
+void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad) {
+  
+  /* Abrimos el archivo correspondiente */
+  char* archivo = *(administrador->archivos + entidad);
+  administrador->fp = fopen(archivo, "r");
+  /* Se asume que */
+  if (id > *(administrador->cantidades+entidad)) {
     return 0;
   }
-
+  
   /* Información del archivo. */
   struct stat s;
 
   /* El archivo mapeado. */
   char* m;
 
-  if (!administrador->fp_a) {
+  if (!administrador->fp) {
     fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
-            administrador->file_n_an);
+            archivo);
     return 0;
   }
-
-  if (0 > fstat(fileno(administrador->fp_a), &s)) {
+  
+  if (0 > fstat(fileno(archivo), &s)) {
     fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
-            administrador->file_n_an);
+            archivo);
     return 0;
   }
 
-  m = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fileno(administrador->fp_a), 0);
+  m = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fileno(administrador->fp), 0);
 
   if (MAP_FAILED == m) {
-    fprintf(stderr, "Sistema:\tError al mapear: %s\n", administrador->file_n_an);
+    fprintf(stderr, "Sistema:\tError al mapear: %s\n", archivo);
     return 0;
   }
 
-  /* Se supone que los índices son continuos. */
-  if (id >= s.st_size) {
-    fprintf(stderr, "Sistema:\tPosici\'on no v\'alida\n");
-    return 0;
-  }
-
+  
   int b = busqueda_binaria_map(m, id, s.st_size);
   printf("Hello:%d\n", b);
   printf("There: %c%c%c%c%c\n", *(m+b), *(m+b+1), *(m+b+2),
          *(m+b+3), *(m+b+4));
 
-  /* *(m + s.st_size) */
+  /* Cantidad de chars en la linea */
+  int i = 0;
+  while (*(m+b+i) != '\n') {
+    i++;
+  }
+  i--;
+  char datos[i];
+  for (int j = 0; j < i; j++ ) {
+    datos[j] = *(m+b+j);
+  }
+  switch (entidad) {
+  case ANIMAL:
+    return animal_new(atoi(strtok(datos, ',')),
+                      atoi(strtok(NULL, ',')),
+                      strtok(NULL, ','),
+                      strtok(NULL, ','),
+                      strtok(NULL, ','));
+
+    /* char** data; */
+    /* /\*Acumulador*\/ */
+    /* int i = 0; */
+    /* /\*Contador de columnas*\/ */
+    /* int n = 0; */
+    
+    /* while (*(m+b+i) != '\n') { */
+    /* char* info = malloc(TAMANO_NOMBRE*sizeof(char)); */
+    /* /\*Contador caracteres*\/ */
+    /* int c = 0; */
+    /*   while (*(m+b+i) != ',') { */
+    /*     *(info + c) = *(m+b+i); */
+    /*     c++; */
+    /*     i++; */
+    /*   } */
+    /*   *data + n = info; */
+    /*   n++; */
+    /* } */
+    
+    /* int id = atoi(); */
+    /* int bioma; */
+    /* char* fecha_nacimiento; */
+    /* char* nombre; */
+    /* char* especie; */
+
+    //return animal_new(atoi(*data), atoi(*(data+1)), *(data+2), *(data+3), *(data+4));
+    break;
+    
+  case BIOMA:
+    return bioma_new(strtok(datos, ','),
+                     strtok(NULL, ','),
+                     atoi(strtok(NULL, ',')));
+    break;
+    
+  case VETERINARIO:
+    return veterinario(atoi(strtok(datos, ',')),
+                       atoi(strtok(NULL, ',')),
+                       strtok(NULL, ','),
+                       atoi(strtok(NULL, ',')),
+                       strtok(NULL, ','),
+                       strtok(NULL, ','));
+    break;
+  default:
+    fprintf(stderr, "Sistema:\tEntidad no v\'alida.");
+  }
+  
+  /*Cerramos el archivo*/
+  fclose(administrados->fp);
+  
   return 0;
 }
 
-/* Consulta el Bioma de la base de datos. */
-Bioma* administrador_consulta_b(Administrador* administrador, int id) {
-  if (id > administrador->n_b) {
-    fprintf(stderr, "Sistema:\tBioma no válido\n");
-    return 0;
-  }
-
-  /* Información del archivo. */
-  struct stat s;
-
-  /* El archivo mapeado. */
-  char* m;
-
-  administrador->fp_b = fopen(administrador->file_n_bi, "r");
-
-  if (!administrador->fp_b) {
-    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
-            administrador->file_n_bi);
-    return 0;
-  }
-
-  if (0 > fstat(fileno(administrador->fp_b), &s)) {
-    fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
-            administrador->file_n_bi);
-    return 0;
-  }
-
-  m = mmap(0, s.st_size, PROT_READ, MAP_PRIVATE, fileno(administrador->fp_b), 0);
-
-  if (MAP_FAILED == m) {
-    fprintf(stderr, "Sistema:\tError al mapear: %s\n", administrador->file_n_bi);
-    return 0;
-  }
-  /* Se supone que los índices son continuos. */
-  if (id >= s.st_size) {
-    fprintf(stderr, "Sistema:\tPosici\'on no v\'alida\n");
-    return 0;
-  }
-
-  int b = busqueda_binaria_map(m, id, s.st_size);
-  printf("Hello:%d\n", b);
-
-  return 0;
-}
-
-/* Consulta el Veterinario de la base de datos. */
-Veterinario* administrador_consulta_v(Administrador* administrador, int id);
-
-/* Para consulta, recibir solo id y archivo: tamano promedio de linea cambia. */
 
 /* Edita la entidad parámetro de la base de datos. */
 void administrador_edita(Administrador* administrador, void* entidad);
