@@ -2,115 +2,118 @@
 #include <sys/stat.h>
 
 #include "administrador.h"
-#include "entidades.h"
+#include "entidad.h"
 
 /* La estructura Administrador. */
 struct Administrador_ {
-  /* El archivo abierto. */
+  /* El archivo. */
   FILE* fp;
-  
+  /* El número de entidades. */
+  int n;
+  /* Los archivos. */
   char** archivos;
-  
+  /* Arreglo del número de entidades. */
   int* cantidades;
 };
 
-/* Construye un Administrador. */                                   
-Administrador* administrador_new(char* file_n_vet, char* file_n_bi, char* file_n_an) {
+/* Construye un Administrador. */
+Administrador* administrador_new(const char** archivos, int n) {
   /* Reservación en heap. */
   Administrador* administrador = malloc(sizeof(struct Administrador_));
+  administrador->archivos      = malloc(sizeof(char*)*n);
+  administrador->cantidades    = calloc(1, sizeof(int)*n);
+  administrador->n             = n;
 
   /* Inicialización del heap. */
-  administrador->file_n_vet = malloc(sizeof(char)*(strnlen(file_n_vet,
-                                                           TAMANO_NOMBRE)+1));
-  administrador->file_n_bi = malloc(sizeof(char)*(strnlen(file_n_bi,
-                                                          TAMANO_NOMBRE)+1));
-  administrador->file_n_an = malloc(sizeof(char)*(strnlen(file_n_an,
-                                                          TAMANO_NOMBRE)+1));
+  while (n--)
+    *(administrador->archivos + administrador->n-(n+1)) =
+      malloc(sizeof(char)*(strnlen(*(archivos + administrador->n-(n+1)),
+                                   TAMANO_NOMBRE)+1));
 
-  strcpy(administrador->file_n_vet, file_n_vet);
-  strcpy(administrador->file_n_bi, file_n_bi);
-  strcpy(administrador->file_n_an, file_n_an);
+  n = administrador->n;
+  while (n--)
+    strcpy(*(administrador->archivos + administrador->n-(n+1)),
+           (*(archivos + administrador->n-(n+1))));
 
   /* Se comenzará con índice 1. */
-  administrador->n_a = 1;
-  administrador->n_b = 1;
-  administrador->n_v = 1;
+  n = administrador->n;
+  while (n--)
+    ++*(administrador->cantidades + administrador->n-(n+1));
 
+  /*Contamos el numero de entidades ya existentes en los archivos*/
+   n = administrador->n;
+  char buff[101];
+  while (n--) {
+    int i = 0;
+    administrador->fp = fopen(*(administrador->archivos + n), "r");
+    while (fgets(buff, TAMANO_LINEA, administrador->fp)) {
+      i++;
+    }
+    *(administrador->cantidades + n) = i+1;
+    printf("%d:%d\n",n, i);
+    fclose(administrador->fp);
+  }
+
+  
+    
   return administrador;
 }
 
 /* Libera la memoria usada por el Administrador. */
 void administrador_free(Administrador* administrador) {
+  if (administrador->archivos) {
+    int n = administrador->n;
+    while (n--)
+      free(*(administrador->archivos + administrador->n-(n+1)));
+    free (administrador->archivos);
+  }
+
+  if (administrador->cantidades)
+    free(administrador->cantidades);
   free(administrador);
 }
 
-/* Agrega el Animal parámetro a la base de datos. */
-void administrador_agrega_a(Administrador* administrador, Animal* animal) {
-  if (!animal) {
-    fprintf(stderr, "Sistema:\tAnimal no válido\n");
+/* Agrega el Animal parámetro administrador->n la base de datos. */
+void administrador_agrega(Administrador* administrador, void* entidad, enum Entidad e) {
+  if (!entidad) {
+    fprintf(stderr, "Sistema:\tEntidad no válida\n");
     return;
   }
-  administrador->fp_a = fopen(administrador->file_n_an, "a");
+  administrador->fp = fopen(*(administrador->archivos + e), "a");
 
-  if (!administrador->fp_a) {
-    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n", administrador->file_n_an);
+  if (!administrador->fp) {
+    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
+            *(administrador->archivos + e));
     exit(1);
   }
 
-  fprintf(administrador->fp_a, "%d,%d,%s,%s,%s\n", animal_id(animal), animal_bioma(animal),
-          animal_fecha_nacimiento(animal), animal_nombre(animal), animal_especie(animal));
-
-  fclose(administrador->fp_a);
-
-  ++administrador->n_a;
-}
-
-/* Agrega el Bioma parámetro a la base de datos. */
-void administrador_agrega_b(Administrador* administrador, Bioma* bioma) {
-  if (!bioma) {
-    fprintf(stderr, "Sistema:\tBioma no válido\n");
-    return;
-  }
-  administrador->fp_b = fopen(administrador->file_n_bi, "a");
-
-  if (!administrador->fp_b) {
-    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n", administrador->file_n_bi);
-    exit(1);
-  }
-
-  fprintf(administrador->fp_b, "%d,%s,%s\n", bioma_id(bioma), bioma_nombre(bioma),
-          bioma_region(bioma));
-
-  fclose(administrador->fp_b);
-
-  ++administrador->n_b;
-}
-
-/* Agrega el Veterinario parámetro a la base de datos. */
-void administrador_agrega_v(Administrador* administrador, Veterinario* veterinario) {
-  if (!veterinario) {
-    fprintf(stderr, "Sistema:\tVeterinario no válido\n");
-    return;
-  }
-  administrador->fp_v = fopen(administrador->file_n_vet, "a");
-
-  if (!administrador->fp_v) {
-    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n", administrador->file_n_vet);
-    exit(1);
+  switch (e) {
+  case ANIMAL:
+    Animal* animal = (Animal*)entidad;
+    fprintf(administrador->fp, "%d,%d,%s,%s,%s\n", animal_id(animal), animal_bioma(animal),
+            animal_fecha_nacimiento(animal), animal_nombre(animal), animal_especie(animal));
+    break;
+  case BIOMA:
+    Bioma* bioma = (Bioma*)entidad;
+    fprintf(administrador->fp, "%d,%s,%s\n", bioma_id(bioma), bioma_nombre(bioma),
+            bioma_region(bioma));
+    break;
+  case VETERINARIO:
+    Veterinario* veterinario = (Veterinario*)entidad;
+    fprintf(administrador->fp, "%d,%d,%s,%d,%s,%s\n", veterinario_id(veterinario),
+            veterinario_esp(veterinario), veterinario_nombre(veterinario),
+            veterinario_jornada(veterinario), veterinario_correo(veterinario),
+            veterinario_fecha_nacimiento(veterinario));
+    break;
   }
 
-  fprintf(administrador->fp_v, "%d,%d,%s,%d,%s,%s\n", veterinario_id(veterinario),
-          veterinario_esp(veterinario), veterinario_nombre(veterinario),
-          veterinario_jornada(veterinario), veterinario_correo(veterinario),
-          veterinario_fecha_nacimiento(veterinario));
+  fclose(administrador->fp);
 
-  fclose(administrador->fp_v);
-
-  ++administrador->n_v;
+  ++*(administrador->cantidades + e);
 }
 
 /* Elimina el animal parámetro de la base de datos. */
-void administrador_elimina_a(Administrador* administrador, void* entidad);
+void administrador_elimina(Administrador* administrador, void* entidad, enum Entidad e);
 
 /* Devuelve el índice del inicio de la línea donde se encuentra la entidad
    buscada. */
@@ -134,19 +137,17 @@ static int busqueda_binaria_map(char* map, int i, size_t file_size) {
   return j+1;
 }
 
-
-
 /* Consulta el Animal de la base de datos. */
 void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad) {
   
   /* Abrimos el archivo correspondiente */
   char* archivo = *(administrador->archivos + entidad);
   administrador->fp = fopen(archivo, "r");
-  /* Se asume que */
+  printf("%d\n", *(administrador->cantidades+entidad));
   if (id > *(administrador->cantidades+entidad)) {
     return 0;
   }
-  
+   
   /* Información del archivo. */
   struct stat s;
 
@@ -159,7 +160,7 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     return 0;
   }
   
-  if (0 > fstat(fileno(archivo), &s)) {
+  if (0 > fstat(fileno(administrador->fp), &s)) {
     fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
             archivo);
     return 0;
@@ -172,82 +173,90 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     return 0;
   }
 
-  
+  printf("%d\n", id);
   int b = busqueda_binaria_map(m, id, s.st_size);
-  printf("Hello:%d\n", b);
+  printf("%d\n", b);
   printf("There: %c%c%c%c%c\n", *(m+b), *(m+b+1), *(m+b+2),
          *(m+b+3), *(m+b+4));
 
   /* Cantidad de chars en la linea */
   int i = 0;
   while (*(m+b+i) != '\n') {
+    if ((m+b+i) == (m+s.st_size-1))
+      break;
     i++;
   }
-  i--;
-  char datos[i];
+ 
+  printf("%d\n", i);
+  
+  char* datos = malloc((i+1)*sizeof(char));
+  
   for (int j = 0; j < i; j++ ) {
     datos[j] = *(m+b+j);
   }
+  datos[i]= '\0';
+  printf("Datos: %s\n", datos);
   switch (entidad) {
   case ANIMAL:
-    return animal_new(atoi(strtok(datos, ',')),
-                      atoi(strtok(NULL, ',')),
-                      strtok(NULL, ','),
-                      strtok(NULL, ','),
-                      strtok(NULL, ','));
+    return animal_new(atoi(strtok(datos, ",")),
+                      atoi(strtok(NULL, ",")),
+                      strtok(NULL, ","),
+                      strtok(NULL, ","),
+                      strtok(NULL, ","));
 
-    /* char** data; */
-    /* /\*Acumulador*\/ */
-    /* int i = 0; */
-    /* /\*Contador de columnas*\/ */
-    /* int n = 0; */
-    
-    /* while (*(m+b+i) != '\n') { */
-    /* char* info = malloc(TAMANO_NOMBRE*sizeof(char)); */
-    /* /\*Contador caracteres*\/ */
-    /* int c = 0; */
-    /*   while (*(m+b+i) != ',') { */
-    /*     *(info + c) = *(m+b+i); */
-    /*     c++; */
-    /*     i++; */
-    /*   } */
-    /*   *data + n = info; */
-    /*   n++; */
-    /* } */
-    
-    /* int id = atoi(); */
-    /* int bioma; */
-    /* char* fecha_nacimiento; */
-    /* char* nombre; */
-    /* char* especie; */
-
-    //return animal_new(atoi(*data), atoi(*(data+1)), *(data+2), *(data+3), *(data+4));
     break;
     
   case BIOMA:
-    return bioma_new(strtok(datos, ','),
-                     strtok(NULL, ','),
-                     atoi(strtok(NULL, ',')));
+    char* p;
+    int id;
+    char* nombre;
+    char* region;
+    p = strtok(datos, ",");
+    
+    if (!p) {
+      fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
+      return 0;
+    }
+      
+    id = atoi(p);
+    p = strtok(NULL, ",");
+    if (!p) {
+      fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
+      return 0;
+    }
+    nombre = p;
+    printf("Nombre: %s\n", nombre);
+    p = strtok(NULL, ",");
+   if (!p) {
+      fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
+      return 0;
+    }
+    region = p;
+    
+    return bioma_new(nombre,
+                     region,
+                     id);
     break;
     
   case VETERINARIO:
-    return veterinario(atoi(strtok(datos, ',')),
-                       atoi(strtok(NULL, ',')),
-                       strtok(NULL, ','),
-                       atoi(strtok(NULL, ',')),
-                       strtok(NULL, ','),
-                       strtok(NULL, ','));
+    return veterinario_new(atoi(strtok(datos, ",")),
+                       atoi(strtok(NULL, ",")),
+                       strtok(NULL, ","),
+                       atoi(strtok(NULL, ",")),
+                       strtok(NULL, ","),
+                       strtok(NULL, ","));
     break;
   default:
     fprintf(stderr, "Sistema:\tEntidad no v\'alida.");
   }
-  
+
+  free(datos);
   /*Cerramos el archivo*/
-  fclose(administrados->fp);
+  fclose(administrador->fp);
   
   return 0;
 }
 
 
 /* Edita la entidad parámetro de la base de datos. */
-void administrador_edita(Administrador* administrador, void* entidad);
+void administrador_edita(Administrador* administrador, void* entidad, enum Entidad e);

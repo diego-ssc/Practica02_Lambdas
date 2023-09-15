@@ -5,6 +5,8 @@
 
 #define TAMANO_PROMEDIO_LINEA 16
 
+#define TAMANO_LINEA 100
+
 /* La estructura Administrador opaca. */
 typedef struct Administrador_ Administrador;
 

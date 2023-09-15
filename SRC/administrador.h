@@ -5,11 +5,10 @@
 
 /**
  * Construye un nuevo Administrador.
- * @param file_n_vet el nombre de archivo de veterinarios.
- * @param file_n_bi el nombre de archivo de biomas.
- * @param file_n_an el nombre de archivo de animales.
+ * @param archivos los nombres de los archivos.
+ * @param n el número de archivos.
  */
-Administrador* administrador_new(char* file_n_vet, char* file_n_bi, char* file_n_an);
+Administrador* administrador_new(const char** archivos, int n);
 
 /**
  * Libera la memoria usada por un Administrador.
@@ -20,43 +19,35 @@ void administrador_free(Administrador* administrador);
 /**
  * Agrega el Animal parámetro a la base de datos.
  * @param administrador el administrador.
- * @param animal el animal.
+ * @param entidad la entidad.
+ * @param e el enum correspondiente a la entidad.
  */
-void administrador_agrega_a(Administrador* administrador, Animal* animal);
-
-/**
- * Agrega el Animal parámetro a la base de datos.
- * @param administrador el administrador.
- * @param bioma el bioma.
- */
-void administrador_agrega_b(Administrador* administrador, Bioma* bioma);
-
-/**
- * Agrega el Animal parámetro a la base de datos.
- * @param administrador el administrador.
- * @param veterinario el veterinario.
- */
-void administrador_agrega_v(Administrador* administrador, Veterinario* veterinario);
+void administrador_agrega(Administrador* administrador,
+                          void* entidad, enum Entidad e);
 
 /**
  * Elimina la entidad parámetro de la base de datos.
  * @param administrador el administrador.
  * @param entidad la entidad.
+ * @param e el enum asociado a la entidad.
  */
-void administrador_elimina(Administrador* administrador, void* entidad);
+void administrador_elimina(Administrador* administrador, void* entidad, enum Entidad e);
 
 
 /**
- * Consulta el Animal parámetro de la base de datos.
+ * Consulta la entidad parámetro de la base de datos.
  * @param administrador el administrador.
  * @param id el identificador.
- * @return el animal.
+ * @param e el enum asociado a la entidad.
+ * @return la entidad.
  */
-void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad);
+void* administrador_consulta(Administrador* administrador, int id, enum Entidad e);
+
 
 /**
  * Edita la entidad parámetro de la base de datos.
  * @param administrador el administrador.
  * @param entidad la entidad.
+ * @param e el enum asociado a la entidad.
  */
-void administrador_edita(Administrador* administrador, void* entidad);
+void administrador_edita(Administrador* administrador, void* entidad, enum Entidad e);
