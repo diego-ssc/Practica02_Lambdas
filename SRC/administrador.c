@@ -2,6 +2,7 @@
 #include <sys/stat.h>
 
 #include "administrador.h"
+#include "entidades.h"
 
 /* La estructura Administrador. */
 struct Administrador_ {
@@ -25,7 +26,7 @@ struct Administrador_ {
   int n_v;
 };
 
-/* Construye un Administrador. */
+/* Construye un Administrador. */                                   
 Administrador* administrador_new(char* file_n_vet, char* file_n_bi, char* file_n_an) {
   /* Reservación en heap. */
   Administrador* administrador = malloc(sizeof(struct Administrador_));
@@ -120,8 +121,8 @@ void administrador_agrega_v(Administrador* administrador, Veterinario* veterinar
   ++administrador->n_v;
 }
 
-/* Elimina la entidad parámetro de la base de datos. */
-void administrador_elimina(Administrador* administrador, void* entidad);
+/* Elimina el animal parámetro de la base de datos. */
+void administrador_elimina_a(Administrador* administrador, void* entidad);
 
 /* Devuelve el índice del inicio de la línea donde se encuentra la entidad
    buscada. */
@@ -159,8 +160,6 @@ Animal* administrador_consulta_a(Administrador* administrador, int id) {
 
   /* El archivo mapeado. */
   char* m;
-
-  administrador->fp_a = fopen(administrador->file_n_an, "r");
 
   if (!administrador->fp_a) {
     fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
@@ -243,6 +242,8 @@ Bioma* administrador_consulta_b(Administrador* administrador, int id) {
 
 /* Consulta el Veterinario de la base de datos. */
 Veterinario* administrador_consulta_v(Administrador* administrador, int id);
+
+/* Para consulta, recibir solo id y archivo: tamano promedio de linea cambia. */
 
 /* Edita la entidad parámetro de la base de datos. */
 void administrador_edita(Administrador* administrador, void* entidad);
