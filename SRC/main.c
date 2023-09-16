@@ -2,18 +2,25 @@
 #include <stdio.h>
 
 #include "sistema.h"
+#include "entidad.h"
+
+#define NUMERO_ENTIDADES 3
+#define NUMERO_ENTIDADES 3
 
 /* Hilo de ejecución principal. */
 int main(int argc, char** argv) {
+  const char * archivos[] = {
+    "animal.csv",
+    "bioma.csv",
+    "veterinario.csv"
+  };
 
-  Bioma* bioma = bioma_new("Hello", "There", 1);
-  Administrador* administrador = administrador_new("veterinario.csv",
-                                                   "bioma.csv",
-                                                   "animal.csv");
+  Administrador* administrador = administrador_new(archivos,
+                                                   NUMERO_ENTIDADES);
 
-  /* administrador_agrega_b(administrador, bioma); */
-  administrador_consulta_b(administrador, 3);
-  
+  Bioma* bioma = bioma_new("wen", "wen", 1);
+  administrador_agrega(administrador, bioma, BIOMA);
+
   bioma_free(bioma);
   administrador_free(administrador);
   return 0;
