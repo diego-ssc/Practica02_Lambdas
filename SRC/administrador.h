@@ -17,6 +17,27 @@ Administrador* administrador_new(const char** archivos, int n);
 void administrador_free(Administrador* administrador);
 
 /**
+ * Devuelve el número de animales.
+ * @param administrador el administrador.
+ * @return el número de animales.
+ */
+int administrador_animales(Administrador* administrador);
+
+/**
+ * Devuelve el número de biomas.
+ * @param administrador el administrador.
+ * @return el número de biomas.
+ */
+int administrador_biomas(Administrador* administrador);
+
+/**
+ * Devuelve el número de veterinarios.
+ * @param administrador el administrador.
+ * @return el número de veterinarios.
+ */
+int administrador_veterinarios(Administrador* administrador);
+
+/**
  * Agrega el Animal parámetro a la base de datos.
  * @param administrador el administrador.
  * @param entidad la entidad.
@@ -47,7 +68,9 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
 /**
  * Edita la entidad parámetro de la base de datos.
  * @param administrador el administrador.
- * @param entidad la entidad.
+ * @param id el identificador de la entidad.
+ * @param a el identificador del atributo a editar.
+ * @param a el atributo a editar.
  * @param e el enum asociado a la entidad.
  */
-void administrador_edita(Administrador* administrador, void* entidad, enum Entidad e);
+void administrador_edita(Administrador* administrador, int id, int a, void* atributo, enum Entidad e);

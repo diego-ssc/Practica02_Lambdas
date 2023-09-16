@@ -71,6 +71,21 @@ void administrador_free(Administrador* administrador) {
   free(administrador);
 }
 
+/* Devuelve el número de animales. */
+int administrador_animales(Administrador* administrador) {
+  return *(administrador->cantidades + ANIMAL);
+}
+
+/* Devuelve el número de biomas. */
+int administrador_biomas(Administrador* administrador) {
+  return *(administrador->cantidades + BIOMA);
+}
+
+/* Devuelve el número de veterinarios. */
+int administrador_veterinarios(Administrador* administrador) {
+  return *(administrador->cantidades + VETERINARIO);
+}
+
 /* Agrega el Animal parámetro administrador->n la base de datos. */
 void administrador_agrega(Administrador* administrador, void* entidad, enum Entidad e) {
   if (!entidad) {
@@ -392,4 +407,192 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
 
 
 /* Edita la entidad parámetro de la base de datos. */
-void administrador_edita(Administrador* administrador, void* entidad, enum Entidad e);
+void administrador_edita(Administrador* administrador, int id, int n_a, void* atributo, enum Entidad e) {
+  administrador->fp = fopen(*(administrador->archivos + e), "r");
+
+  if (!administrador->fp) {
+    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
+            *(administrador->archivos + e));
+    exit(1);
+  }
+
+  char s[TAMANO_LINEA];
+  int i = 0, j, a;
+
+  switch (e) {
+  case ANIMAL:
+    if (n_a > 4 || !n_a) {
+      fprintf(stderr, "Sistema:\tAtributo inválido\n");
+      fclose(administrador->fp);
+      return;
+    }
+    Animal** animales = malloc(sizeof(Animal*)*(*(administrador->cantidades + ANIMAL)));
+    a = *(administrador->cantidades + ANIMAL)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id    = atoi(strtok(s, ",\n"));
+      int bioma = atoi(strtok(0, ",\n"));
+      char* f_n = strtok(0, ",\n");
+      char* n   = strtok(0, ",\n");
+      char* e   = strtok(0, ",\n");
+
+      switch (n_a) {
+      case 1:
+        bioma = *((int*)atributo);
+        break;
+      case 2:
+        f_n = (char*)atributo;
+        break;
+      case 3:
+        n = (char*)atributo;
+        break;
+      case 4:
+        e = (char*)atributo;
+        break;
+      default:
+        fprintf(stderr, "Sistema:\tAtributo inválido\n");
+        fclose(administrador->fp);
+        return;
+      }
+
+      *(animales + i) = animal_new(id, bioma, f_n, n, e);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Animal* animal = *(animales + i - (j+1));
+      fprintf(administrador->fp, "%d,%d,%s,%s,%s\n",
+              animal_id(animal),
+              animal_bioma(animal), animal_fecha_nacimiento(animal),
+              animal_nombre(animal), animal_especie(animal));
+    }
+
+    fclose(administrador->fp);
+
+    j = i;
+    while (j--)
+      animal_free(*(animales + i - (j+1)));
+    free(animales);
+    break;
+  case BIOMA:
+    if (n_a > 2 || !n_a) {
+      fprintf(stderr, "Sistema:\tAtributo inválido\n");
+      fclose(administrador->fp);
+      return;
+    }
+    Bioma** biomas = malloc(sizeof(Bioma*)*(*(administrador->cantidades + BIOMA)));
+    a = *(administrador->cantidades + BIOMA)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id    = atoi(strtok(s, ",\n"));
+      char* n   = strtok(0, ",\n");
+      char* r   = strtok(0, ",\n");
+
+      switch (n_a) {
+      case 1:
+        n = (char*)atributo;
+        break;
+      case 2:
+        r = (char*)atributo;
+        break;
+      default:
+        fprintf(stderr, "Sistema:\tAtributo inválido\n");
+        fclose(administrador->fp);
+        return;
+      }
+
+      *(biomas + i) = bioma_new(n, r, id);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Bioma* bioma = *(biomas + i - (j+1));
+      fprintf(administrador->fp, "%d,%s,%s\n",
+              bioma_id(bioma),
+              bioma_nombre(bioma), bioma_region(bioma));
+    }
+
+    fclose(administrador->fp);
+
+    j = i;
+    while (j--)
+      bioma_free(*(biomas + i - (j+1)));
+    free(biomas);
+    break;
+  case VETERINARIO:
+    if (n_a > 5 || !n_a) {
+      fprintf(stderr, "Sistema:\tAtributo inválido\n");
+      fclose(administrador->fp);
+      return;
+    }
+    Veterinario** veterinarios = malloc(sizeof(Veterinario*)*
+                                        (*(administrador->cantidades + VETERINARIO)));
+    a = *(administrador->cantidades + VETERINARIO)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id     = atoi(strtok(s, ",\n"));
+      int esp    = atoi(strtok(0, ",\n"));
+      char* n    = strtok(0, ",\n");
+      int jr     = atoi(strtok(0, ",\n"));
+      char* c_e  = strtok(0, ",\n");
+      char* f_n  = strtok(0, ",\n");
+
+      switch (n_a) {
+      case 1:
+        esp = *(int*)atributo;
+        break;
+      case 2:
+        n = (char*)atributo;
+        break;
+      case 3:
+        jr = *(int*)atributo;
+        break;
+      case 4:
+        c_e = (char*)atributo;
+        break;
+      case 5:
+        f_n = (char*)atributo;
+        break;
+      default:
+        fprintf(stderr, "Sistema:\tAtributo inválido\n");
+        fclose(administrador->fp);
+        return;
+      }
+
+      *(veterinarios + i) = veterinario_new(id, esp, n, jr, c_e, f_n);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Veterinario* veterinario = *(veterinarios + i - (j+1));
+      fprintf(administrador->fp, "%d,%d,%s,%d,%s,%s\n",
+              veterinario_id(veterinario), veterinario_esp(veterinario),
+              veterinario_nombre(veterinario), veterinario_jornada(veterinario),
+              veterinario_correo(veterinario), veterinario_fecha_nacimiento(veterinario));
+    }
+
+    j = i;
+    while (j--)
+      veterinario_free(*(veterinarios + i - (j+1)));
+    free(veterinarios);
+    break;
+  }
+}
