@@ -7,6 +7,9 @@
 #define NUMERO_ENTIDADES 3
 #define NUMERO_ENTIDADES 3
 
+int salir();
+int agrega(enum Entidad , Administrador* );
+
 /* Hilo de ejecución principal. */
 int main(int argc, char** argv) {
   const char * archivos[] = {
@@ -17,116 +20,153 @@ int main(int argc, char** argv) {
   Administrador* administrador = administrador_new(archivos,
                                                    NUMERO_ENTIDADES);
 
-  //  printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
-  printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\n");
-  char line[200];
+
+  printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
+  char line[TAMANO_LINEA];
   int i;
-  if (fgets(line, sizeof(line), stdin)) {
-    if(1 == sscanf(line, "%d", &i)){
-      switch (i){
-        //AGREGAR
-      case 1:
-        //printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\n");
-        printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
-        if (fgets(line, sizeof(line), stdin)) {
-          if(1 == sscanf(line, "%d", &i)){
-            
-            switch (i-1) {
-            case ANIMAL:
-              printf("Datos a ingresar (bioma (int), nombre, especie, fecha_nacimiento)\ningrese los datos separados por espacios");
-              if (fgets(line, sizeof(line), stdin)) {
-                int bioma;
-                char nombre[30], especie[30], fecha[30];
-                if (1 == sscanf(line, "%d %s %s %s", nombre, especie, fecha)){
-                  int id = administrador_animales(administrador)+1;
-                  Animal* animal = animal_new(id, bioma, nombre, especie, fecha);
-                  printf("Animal(%d, %d, %s, %s, %s)", id, bioma, nombre, especie, fecha);
-                  administrador_agrega(administrador, animal, ANIMAL)                  
-                }else {
-                  printf("Error de input");
-                  return 0;
-                }
-              }
-              break;
-            case BIOMA:
-              printf("Datos a ingresar ( nombre, region)\ningrese los datos separados por espacios");
-              if (fgets(line, sizeof(line), stdin)) {
-                
-                char nombre[30], region[30];
-                if (1 == sscanf(line, "%s %s", nombre, region)){
-                  int id = administrador_biomas(administrador)+1;
-                  Bioma* bioma = bioma_new(nombre, region, id);
-                  printf("Bioma(%d, %s, %s)", id,  nombre, region);
-                  administrador_agrega(administrador, bioma, BIOMA)                  
-                }else {
-                  printf("Error de input");
-                  return 0;
-                }
-              }
-              break;
-            case VETERINARIO:
-              printf("Datos a ingresar (nombre, especialidad, jornada (0:medio tiempo, 1:tiempo completo), correo, fecha_nacimiento)\ningrese los datos separados por espacios");
-              if (fgets(line, sizeof(line), stdin)) {
-                int jornada;
-                char nombre[30], especialidad[30], correo[30], fecha[30];
-                if (1 == sscanf(line, "%s %s %d %s %s", nombre, especialidad, jornada, correo, fecha)){
-                  if (!(jornada == 0 || jornada == 1)) {
-                    printf("Error de input");
-                    return 0;
-                  }
-                  int id = administrador_biomas(administrador)+1;
-                  Bioma* bioma = bioma_new(nombre, region, id);
-                  printf("Bioma(%d, %s, %s)", id,  nombre, region);
-                  administrador_agrega(administrador, bioma, BIOMA)                  
-                }else {
-                  printf("Error de input");
-                  return 0;
-                }
-              break;
-            default:
-              
-            }
-            
-                    
-          }
-        }
-        break;
-      case 2:
-        break;
-      case 3:
-        break;
-      default:
-        
-      }
-    }else{
+  while (!fgets(line, TAMANO_LINEA, stdin)  ) {
+    while ( 1 != sscanf(line, "%d", &i))
       printf("Error de input");
-      return 0;
-    }
-  else {
-    printf("Error de input");
-    return 0;
+    break;
   }
 
+
+  switch (i){
+    //AGREGAR
+  case 1:
+    printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+    if (fgets(line, sizeof(line), stdin)) {
+      if(1 == sscanf(line, "%d", &i)){
+        while (!agrega(i-1, administrador)) {
+          if (salir())
+            break;
+        }       
+      }
+    }
+    break;
+    // ELIMINAR
+  case 2:
+    break;
+    // CONSULTA
+  case 3:
+    break;
+    // EDITAR
+  case 4:
+    printf("Ingrese el id de la entidad a consultar:\n");
+    while (!fgets(line, TAMANO_LINEA, stdin)  ) {
+      while ( 1 != sscanf(line, "%d", &i))
+        printf("Error de input");
+      break;
+    }
+    break;
+  default:
+        
+  }
   
-
-  Administrador* administrador = administrador_new(archivos,
-                                                   NUMERO_ENTIDADES);
-
-  Bioma* bioma = bioma_new("wen", "wen", 1);
-  Veterinario* vet = veterinario_new(1, 0, "nombre", 0, "correo", "fecha");
-  Animal* animal = animal_new(1, 1, "fecha", "nombre", "especie");
-  administrador_agrega(administrador, bioma, BIOMA);
-  administrador_elimina(administrador, 1, BIOMA);
-
-  Bioma* bioma1 = administrador_consulta(administrador, 5, BIOMA);
-  if (bioma1)
-    printf("%d,%s\n", bioma_id(bioma1), bioma_nombre(bioma1));
-
-  animal_free(animal);
-  veterinario_free(vet);
-  bioma_free(bioma);
-  bioma_free(bioma1);
-  administrador_free(administrador);
 
   return 0;
 }
+
+int salir() {
+  char line[TAMANO_LINEA];
+  int i;
+  printf("Salir?(0=no\n1=yes) : ");
+  if (!fgets(line, TAMANO_LINEA, stdin)) {
+    printf("Error de input\n");
+    return 0;
+  }
+  if (1 != sscanf(line, "%d", &i)){
+    printf("Error de input\n");
+    return 0;     
+  }
+  if (i)
+    return 1;
+  return 0;
+}
+  
+int agrega(enum Entidad e, Administrador* administrador) {
+  char line[TAMANO_LINEA], nombre[TAMANO_NOMBRE], fecha[TAMANO_NOMBRE];
+  int id;
+  
+  switch (e) {
+  case ANIMAL :
+    printf("Datos a ingresar (bioma (int), nombre, especie, fecha_nacimiento)\ningrese los datos separados por espacios");
+    if (!fgets(line, TAMANO_LINEA, stdin)) {
+      printf("Error de input\n");
+      return 0;
+    }
+    int bioma_id;
+    char especie[TAMANO_NOMBRE];
+    if (3 != sscanf(line, "%s %s %s", nombre, especie, fecha)){
+      printf("Error de input\n");
+      return 0;     
+    }
+    id = administrador_animales(administrador)+1;
+    Animal* animal = animal_new(id, bioma_id, nombre, especie, fecha);
+    printf("Animal(%d, %d, %s, %s, %s)\n", id, bioma_id, nombre, especie, fecha);
+    administrador_agrega(administrador, animal, ANIMAL);
+    return 1;
+    break;
+  case BIOMA :
+    printf("Datos a ingresar (nombre, region)\ningrese los datos separados por espacios.\n");
+    if (!fgets(line, TAMANO_LINEA, stdin)) {
+      printf("Error de input\n");
+      return 0;
+    }
+    char nombre[30], region[30];
+    if (2 != sscanf(line, "%s %s", nombre, region)){
+      printf("Error de input\n");
+      return 0;         
+    }
+    id = administrador_biomas(administrador)+1;
+    Bioma* bioma = bioma_new(nombre, region, id);
+    printf("Bioma(%d, %s, %s)\n", id,  nombre, region);
+    administrador_agrega(administrador, bioma, BIOMA);
+    return 1;
+    break;
+  case VETERINARIO:
+    printf("Datos a ingresar (nombre, especialidad, jornada (0:medio tiempo, 1:tiempo completo), correo, fecha_nacimiento)\ningrese los datos separados por espacios\n");
+    if (!fgets(line, TAMANO_LINEA, stdin)) {
+      printf("Error de input\n");
+      return 0;
+    }
+    int jornada, esp;
+    char  correo[TAMANO_NOMBRE];
+    if (5 != sscanf(line, "%s %d %d %s %s", nombre, &esp, &jornada, correo, fecha)){
+      printf("Error de input\n");
+      return 0;
+    }
+    if (!(jornada == 0 || jornada == 1)) {
+      printf("Error de input\n");
+      return 0;
+    }
+    id = administrador_veterinarios(administrador)+1;
+    Veterinario* vet = veterinario_new(id, esp, nombre, jornada, correo, fecha);
+    printf("Veterinario(%d, %s, %s)\n", id,  nombre, region);
+    administrador_agrega(administrador, vet, VETERINARIO);
+    return 1;
+    break;
+  default:
+    printf("Error de input\n");
+    return 0;
+  }
+}
+
+
+
+int consulta(enum Entidad e, Administrador* administrador) {
+  switch (e) {
+  case ANIMAL:
+    
+    break;
+  case BIOMA:
+    break;
+  case VETERINARIO:
+    break;
+  default:
+    printf("Error de input\n");
+    return 0;
+  }
+}
+
+

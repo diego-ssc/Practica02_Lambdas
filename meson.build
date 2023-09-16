@@ -26,19 +26,3 @@ TSP_SA = static_library('sistema-zoologico', src,
 exe = executable('sistema-zoologico', src,
                  dependencies: [  m_dep, thread_dep ],
                  install : true)
-
-hotdoc = import('hotdoc')
-hotdoc.generate_doc('sistema-zoologico',
-  project_version: '0.1',
-  sitemap: 'Docs/sitemap.txt',
-  index: 'Docs/markdown_file/index.md',
-  c_sources: [
-    'SRC/main.c',
-    'SRC/administrador.c',
-    'SRC/veterinario.c',
-    'SRC/animal.c',
-    'SRC/bioma.c'],
-  c_smart_index: true,
-  languages: ['c'],
-  install: true,
-)

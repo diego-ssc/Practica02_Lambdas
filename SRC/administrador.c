@@ -344,20 +344,22 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     datos[j] = *(m+b+j);
   }
   datos[i]= '\0';
+  int ide;
+  char* nombre;
+  char* fecha;
   switch (entidad) {
   case ANIMAL:
-    return animal_new(atoi(strtok(datos, ",")),
-                      atoi(strtok(NULL, ",")),
-                      strtok(NULL, ","),
-                      strtok(NULL, ","),
-                      strtok(NULL, ","));
-
+    ide = atoi(strtok(datos, ","));
+    int bioma = atoi(strtok(NULL, ","));
+    fecha = strtok(NULL, ",");
+    nombre = strtok(NULL, ",");
+    char* especie = strtok(NULL, ",");
+    return animal_new(ide, bioma, fecha, nombre, especie);
     break;
 
   case BIOMA:
     char* p;
-    int id;
-    char* nombre;
+
     char* region;
     p = strtok(datos, ",");
 
@@ -366,7 +368,7 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
       return 0;
     }
 
-    id = atoi(p);
+    ide = atoi(p);
     p = strtok(NULL, ",");
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
@@ -383,16 +385,17 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
 
     return bioma_new(nombre,
                      region,
-                     id);
+                     ide);
     break;
 
   case VETERINARIO:
-    return veterinario_new(atoi(strtok(datos, ",")),
-                           atoi(strtok(NULL, ",")),
-                           strtok(NULL, ","),
-                           atoi(strtok(NULL, ",")),
-                           strtok(NULL, ","),
-                           strtok(NULL, ","));
+    ide = atoi(strtok(datos, ","));
+    int esp = atoi(strtok(NULL, ","));
+    nombre = strtok(NULL, ",");
+    int jornada = atoi(strtok(NULL, ","));
+    char* correo = strtok(NULL, ",");
+    fecha = strtok(NULL, ",");
+    return veterinario_new(ide, esp, nombre, jornada, correo, fecha);
     break;
   default:
     fprintf(stderr, "Sistema:\tEntidad no v\'alida.");
