@@ -405,34 +405,36 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
+     
       /* Análisis de Propiedades. */
-      int id    = atoi(strtok(s, ",\n"));
+      int id_   = atoi(strtok(s, ",\n"));
       int bioma = atoi(strtok(0, ",\n"));
       char* f_n = strtok(0, ",\n");
       char* n   = strtok(0, ",\n");
       char* e   = strtok(0, ",\n");
-      printf("EEEEE: %s\n", e);
-      switch (n_a) {
-      case 1:
-        bioma = *((int*)atributo);
-        break;
-      case 2:
-        f_n = (char*)atributo;
-        break;
-      case 3:
-        n = (char*)atributo;
-        break;
-      case 4:
-        e = (char*)atributo;
-        break;
-      default:
-        fprintf(stderr, "Sistema:\tAtributo inválido\n");
-        fclose(administrador->fp);
-        return;
-      }
 
+      if (id_==id){ 
+        switch (n_a) {
+        case 1:
+          bioma = *((int*)atributo);
+          break;
+        case 2:
+          f_n = strtok((char*)atributo, "\n");
+          break;
+        case 3:
+          n = strtok((char*)atributo, "\n");
+          break;
+        case 4:
+          e = strtok((char*)atributo, "\n");
+          break;
+        default:
+          fprintf(stderr, "Sistema:\tAtributo inválido\n");
+          fclose(administrador->fp);
+          return;
+        }
+      }
      
-      *(animales + i) = animal_new(id, bioma, f_n, n, e);
+      *(animales + i) = animal_new(id_, bioma, f_n, n, e);
       i++;
     }
 
@@ -467,24 +469,26 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
       fgets(s, TAMANO_LINEA, administrador->fp);
 
       /* Análisis de Propiedades. */
-      int id    = atoi(strtok(s, ",\n"));
+      int id_    = atoi(strtok(s, ",\n"));
       char* n   = strtok(0, ",\n");
       char* r   = strtok(0, ",\n");
 
-      switch (n_a) {
-      case 1:
-        n = (char*)atributo;
-        break;
-      case 2:
-        r = (char*)atributo;
-        break;
-      default:
-        fprintf(stderr, "Sistema:\tAtributo inválido\n");
-        fclose(administrador->fp);
-        return;
-      }
+      if (id_ == id) {
+        switch (n_a) {
+        case 1:
+          n = strtok((char*)atributo, "\n");
+          break;
+        case 2:
+          r = strtok((char*)atributo, "\n");
+          break;
+        default:
+          fprintf(stderr, "Sistema:\tAtributo inválido\n");
+          fclose(administrador->fp);
+          return;
+        }
 
-      *(biomas + i) = bioma_new(n, r, id);
+      }
+      *(biomas + i) = bioma_new(n, r, id_);
       i++;
     }
 
@@ -519,36 +523,38 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
       fgets(s, TAMANO_LINEA, administrador->fp);
 
       /* Análisis de Propiedades. */
-      int id     = atoi(strtok(s, ",\n"));
+      int id_    = atoi(strtok(s, ",\n"));
       int esp    = atoi(strtok(0, ",\n"));
       char* n    = strtok(0, ",\n");
       int jr     = atoi(strtok(0, ",\n"));
       char* c_e  = strtok(0, ",\n");
       char* f_n  = strtok(0, ",\n");
 
-      switch (n_a) {
-      case 1:
-        esp = *(int*)atributo;
-        break;
-      case 2:
-        n = (char*)atributo;
-        break;
-      case 3:
-        jr = *(int*)atributo;
-        break;
-      case 4:
-        c_e = (char*)atributo;
-        break;
-      case 5:
-        f_n = (char*)atributo;
-        break;
-      default:
-        fprintf(stderr, "Sistema:\tAtributo inválido\n");
-        fclose(administrador->fp);
-        return;
+      if (id_ == id) {
+        switch (n_a) {
+        case 1:
+          esp = *(int*)atributo;
+          break;
+        case 2:
+          n = strtok((char*)atributo, "\n");
+          break;
+        case 3:
+          jr = *(int*)atributo;
+          break;
+        case 4:
+          c_e = strtok((char*)atributo, "\n");
+          break;
+        case 5:
+          f_n = strtok((char*)atributo, "\n");
+          break;
+        default:
+          fprintf(stderr, "Sistema:\tAtributo inválido\n");
+          fclose(administrador->fp);
+          return;
+        }
       }
 
-      *(veterinarios + i) = veterinario_new(id, esp, n, jr, c_e, f_n);
+      *(veterinarios + i) = veterinario_new(id_, esp, n, jr, c_e, f_n);
       i++;
     }
 

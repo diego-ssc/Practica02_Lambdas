@@ -23,10 +23,15 @@ para compilar el programa.
 ./build/sistema-zoologico
 ```
 
-## Dependencies
+## Dependencias
 
 ### [Meson](https://mesonbuild.com/)
 ```
 meson
 Version: 1.2.1
+```
+### [Doxygen](https://www.doxygen.nl/)
+Para generar documentación dentro de la carpeta Docs
+```
+doxygen Doxyfile
 ```
