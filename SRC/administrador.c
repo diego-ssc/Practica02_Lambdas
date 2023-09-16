@@ -41,7 +41,7 @@ Administrador* administrador_new(const char** archivos, int n) {
     ++*(administrador->cantidades + administrador->n-(n+1));
 
   /*Contamos el numero de entidades ya existentes en los archivos*/
-   n = administrador->n;
+  n = administrador->n;
   char buff[101];
   while (n--) {
     int i = 0;
@@ -49,13 +49,11 @@ Administrador* administrador_new(const char** archivos, int n) {
     while (fgets(buff, TAMANO_LINEA, administrador->fp)) {
       i++;
     }
+
     *(administrador->cantidades + n) = i+1;
-    printf("%d:%d\n",n, i);
     fclose(administrador->fp);
   }
 
-  
-    
   return administrador;
 }
 
@@ -113,7 +111,151 @@ void administrador_agrega(Administrador* administrador, void* entidad, enum Enti
 }
 
 /* Elimina el animal parámetro de la base de datos. */
-void administrador_elimina(Administrador* administrador, void* entidad, enum Entidad e);
+void administrador_elimina(Administrador* administrador, int id, enum Entidad e) {
+  if (id >= *(administrador->cantidades + e)) {
+    fprintf(stderr, "Sistema:\tEntidad no válida\n");
+    return;
+  }
+  administrador->fp = fopen(*(administrador->archivos + e), "r");
+
+  if (!administrador->fp) {
+    fprintf(stderr, "Sistema:\tNo se pudo abrir el archivo: %s\n",
+            *(administrador->archivos + e));
+    exit(1);
+  }
+
+  char s[TAMANO_LINEA];
+  int i = 0, j, eliminado = 0, a;
+
+  switch (e) {
+  case ANIMAL:
+    Animal** animales = malloc(sizeof(Animal*)*(*(administrador->cantidades + ANIMAL)));
+    a = *(administrador->cantidades + ANIMAL)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id    = atoi(strtok(s, ",\n"));
+      int bioma = atoi(strtok(0, ",\n"));
+      char* f_n = strtok(0, ",\n");
+      char* n   = strtok(0, ",\n");
+      char* e   = strtok(0, ",\n");
+
+      *(animales + i) = animal_new(id, bioma, f_n, n, e);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Animal* animal = *(animales + i - (j+1));
+      if (id == animal_id(animal)) {
+        eliminado = 1;
+        continue;
+      }
+
+      fprintf(administrador->fp, "%d,%d,%s,%s,%s\n",
+              eliminado ? animal_id(animal) - 1 : animal_id(animal),
+              animal_bioma(animal), animal_fecha_nacimiento(animal),
+              animal_nombre(animal), animal_especie(animal));
+    }
+
+    fclose(administrador->fp);
+
+    j = i;
+    while (j--)
+      animal_free(*(animales + i - (j+1)));
+    free(animales);
+    break;
+  case BIOMA:
+    Bioma** biomas = malloc(sizeof(Bioma*)*(*(administrador->cantidades + BIOMA)));
+    a = *(administrador->cantidades + BIOMA)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id    = atoi(strtok(s, ",\n"));
+      char* n   = strtok(0, ",\n");
+      char* r   = strtok(0, ",\n");
+
+      *(biomas + i) = bioma_new(n, r, id);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Bioma* bioma = *(biomas + i - (j+1));
+      if (id == bioma_id(bioma)) {
+        eliminado = 1;
+        continue;
+      }
+
+      fprintf(administrador->fp, "%d,%s,%s\n",
+              eliminado ? bioma_id(bioma) - 1 : bioma_id(bioma),
+              bioma_nombre(bioma), bioma_region(bioma));
+    }
+
+    fclose(administrador->fp);
+
+    j = i;
+    while (j--)
+      bioma_free(*(biomas + i - (j+1)));
+
+    free(biomas);
+    break;
+  case VETERINARIO:
+    Veterinario** veterinarios = malloc(sizeof(Veterinario*)*
+                                        (*(administrador->cantidades + VETERINARIO)));
+    a = *(administrador->cantidades + VETERINARIO)-1;
+    while (!feof(administrador->fp) && a--) {
+      fgets(s, TAMANO_LINEA, administrador->fp);
+
+      /* Análisis de Propiedades. */
+      int id     = atoi(strtok(s, ",\n"));
+      int esp    = atoi(strtok(0, ",\n"));
+      char* n    = strtok(0, ",\n");
+      int jr     = atoi(strtok(0, ",\n"));
+      char* c_e  = strtok(0, ",\n");
+      char* f_n  = strtok(0, ",\n");
+
+      *(veterinarios + i) = veterinario_new(id, esp, n, jr, c_e, f_n);
+      i++;
+    }
+
+    fclose(administrador->fp);
+
+    administrador->fp = fopen(*(administrador->archivos + e), "w");
+    j = i;
+    while (j--) {
+      Veterinario* veterinario = *(veterinarios + i - (j+1));
+      if (id == veterinario_id(veterinario)) {
+        eliminado = 1;
+        continue;
+      }
+
+      fprintf(administrador->fp, "%d,%d,%s,%d,%s,%s\n",
+              eliminado ? veterinario_id(veterinario) - 1 :
+              veterinario_id(veterinario), veterinario_esp(veterinario),
+              veterinario_nombre(veterinario), veterinario_jornada(veterinario),
+              veterinario_correo(veterinario), veterinario_fecha_nacimiento(veterinario));
+    }
+
+    fclose(administrador->fp);
+
+    j = i;
+    while (j--)
+      veterinario_free(*(veterinarios + i - (j+1)));
+    free(veterinarios);
+    break;
+  }
+
+  --*(administrador->cantidades + e);
+}
 
 /* Devuelve el índice del inicio de la línea donde se encuentra la entidad
    buscada. */
@@ -139,15 +281,13 @@ static int busqueda_binaria_map(char* map, int i, size_t file_size) {
 
 /* Consulta el Animal de la base de datos. */
 void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad) {
-  
   /* Abrimos el archivo correspondiente */
   char* archivo = *(administrador->archivos + entidad);
   administrador->fp = fopen(archivo, "r");
-  printf("%d\n", *(administrador->cantidades+entidad));
   if (id > *(administrador->cantidades+entidad)) {
     return 0;
   }
-   
+
   /* Información del archivo. */
   struct stat s;
 
@@ -159,7 +299,7 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
             archivo);
     return 0;
   }
-  
+
   if (0 > fstat(fileno(administrador->fp), &s)) {
     fprintf(stderr, "Sistema:\tNo se pudo obtener el tamaño del archivo: %s\n",
             archivo);
@@ -173,11 +313,7 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     return 0;
   }
 
-  printf("%d\n", id);
   int b = busqueda_binaria_map(m, id, s.st_size);
-  printf("%d\n", b);
-  printf("There: %c%c%c%c%c\n", *(m+b), *(m+b+1), *(m+b+2),
-         *(m+b+3), *(m+b+4));
 
   /* Cantidad de chars en la linea */
   int i = 0;
@@ -186,16 +322,13 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
       break;
     i++;
   }
- 
-  printf("%d\n", i);
-  
+
   char* datos = malloc((i+1)*sizeof(char));
-  
+
   for (int j = 0; j < i; j++ ) {
     datos[j] = *(m+b+j);
   }
   datos[i]= '\0';
-  printf("Datos: %s\n", datos);
   switch (entidad) {
   case ANIMAL:
     return animal_new(atoi(strtok(datos, ",")),
@@ -205,46 +338,46 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
                       strtok(NULL, ","));
 
     break;
-    
+
   case BIOMA:
     char* p;
     int id;
     char* nombre;
     char* region;
     p = strtok(datos, ",");
-    
+
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
       return 0;
     }
-      
+
     id = atoi(p);
     p = strtok(NULL, ",");
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
       return 0;
     }
+
     nombre = p;
-    printf("Nombre: %s\n", nombre);
     p = strtok(NULL, ",");
-   if (!p) {
+    if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
       return 0;
     }
     region = p;
-    
+
     return bioma_new(nombre,
                      region,
                      id);
     break;
-    
+
   case VETERINARIO:
     return veterinario_new(atoi(strtok(datos, ",")),
-                       atoi(strtok(NULL, ",")),
-                       strtok(NULL, ","),
-                       atoi(strtok(NULL, ",")),
-                       strtok(NULL, ","),
-                       strtok(NULL, ","));
+                           atoi(strtok(NULL, ",")),
+                           strtok(NULL, ","),
+                           atoi(strtok(NULL, ",")),
+                           strtok(NULL, ","),
+                           strtok(NULL, ","));
     break;
   default:
     fprintf(stderr, "Sistema:\tEntidad no v\'alida.");
@@ -253,7 +386,7 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
   free(datos);
   /*Cerramos el archivo*/
   fclose(administrador->fp);
-  
+
   return 0;
 }
 

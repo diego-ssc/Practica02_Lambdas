@@ -28,10 +28,10 @@ void administrador_agrega(Administrador* administrador,
 /**
  * Elimina la entidad parámetro de la base de datos.
  * @param administrador el administrador.
- * @param entidad la entidad.
+ * @param id el identificador de la entidad a eliminar.
  * @param e el enum asociado a la entidad.
  */
-void administrador_elimina(Administrador* administrador, void* entidad, enum Entidad e);
+void administrador_elimina(Administrador* administrador, int id, enum Entidad e);
 
 
 /**

@@ -1,11 +1,11 @@
 #pragma once
 
 /* Define el tamaño designado de los nombres. */
-#define TAMANO_NOMBRE 50
+#define TAMANO_NOMBRE 20
+/* Define el tamaño máximo de las líneas del archivo. */
+#define TAMANO_LINEA  100
 
 #define TAMANO_PROMEDIO_LINEA 16
-
-#define TAMANO_LINEA 100
 
 /* La estructura Administrador opaca. */
 typedef struct Administrador_ Administrador;
