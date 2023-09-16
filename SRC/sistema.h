@@ -5,7 +5,7 @@
 /* Define el tamaño máximo de las líneas del archivo. */
 #define TAMANO_LINEA  100
 
-#define TAMANO_PROMEDIO_LINEA 16
+#define TAMANO_PROMEDIO_LINEA 30
 
 /* La estructura Administrador opaca. */
 typedef struct Administrador_ Administrador;

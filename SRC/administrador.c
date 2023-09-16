@@ -50,7 +50,7 @@ Administrador* administrador_new(const char** archivos, int n) {
       i++;
     }
 
-    *(administrador->cantidades + n) = i+1;
+    *(administrador->cantidades + n) = i;
     fclose(administrador->fp);
   }
 
@@ -272,27 +272,6 @@ void administrador_elimina(Administrador* administrador, int id, enum Entidad e)
   --*(administrador->cantidades + e);
 }
 
-/* Devuelve el índice del inicio de la línea donde se encuentra la entidad
-   buscada. */
-static int busqueda_binaria_map(char* map, int i, size_t file_size) {
-  int j = file_size/2;
-  while (1) {
-    while (*(map + j) != '\n' && j > 0) {
-      if (j == 0)
-        break;
-      j--;
-    }
-
-    j = j ? j : -1;
-    if (atoi(map + j+1) == i)
-      return j+1;
-    if (atoi(map + j+1) > i)
-      j /= 2;
-    else
-      j += TAMANO_PROMEDIO_LINEA+j/2;
-  }
-  return j+1;
-}
 
 /* Consulta el Animal de la base de datos. */
 void* administrador_consulta(Administrador* administrador, int id, enum Entidad entidad) {
@@ -328,40 +307,32 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     return 0;
   }
 
-  int b = busqueda_binaria_map(m, id, s.st_size);
+  char datos[TAMANO_LINEA];
 
-  /* Cantidad de chars en la linea */
-  int i = 0;
-  while (*(m+b+i) != '\n') {
-    if ((m+b+i) == (m+s.st_size-1))
-      break;
-    i++;
+  while(!feof(administrador->fp)) {
+    if(fgets(datos, TAMANO_LINEA, administrador->fp)) {
+      if (atoi(datos) == id)
+        break;    
+    }
   }
-
-  char* datos = malloc((i+1)*sizeof(char));
-
-  for (int j = 0; j < i; j++ ) {
-    datos[j] = *(m+b+j);
-  }
-  datos[i]= '\0';
+  
   int ide;
   char* nombre;
   char* fecha;
   switch (entidad) {
   case ANIMAL:
-    ide = atoi(strtok(datos, ","));
-    int bioma = atoi(strtok(NULL, ","));
-    fecha = strtok(NULL, ",");
-    nombre = strtok(NULL, ",");
-    char* especie = strtok(NULL, ",");
+    ide = atoi(strtok(datos, ",\n"));
+    int bioma = atoi(strtok(NULL, ",\n"));
+    fecha = strtok(NULL, ",\n");
+    nombre = strtok(NULL, ",\n");
+    char* especie = strtok(NULL, "\n");
     return animal_new(ide, bioma, fecha, nombre, especie);
     break;
 
   case BIOMA:
     char* p;
-
     char* region;
-    p = strtok(datos, ",");
+    p = strtok(datos, ",\n");
 
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
@@ -369,14 +340,14 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     }
 
     ide = atoi(p);
-    p = strtok(NULL, ",");
+    p = strtok(NULL, ",\n");
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
       return 0;
     }
 
     nombre = p;
-    p = strtok(NULL, ",");
+    p = strtok(NULL, ",\n");
     if (!p) {
       fprintf(stderr, "Sistema1:\tError al leer datos en el archivo: %s\n", archivo);
       return 0;
@@ -389,19 +360,19 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
     break;
 
   case VETERINARIO:
-    ide = atoi(strtok(datos, ","));
-    int esp = atoi(strtok(NULL, ","));
-    nombre = strtok(NULL, ",");
-    int jornada = atoi(strtok(NULL, ","));
-    char* correo = strtok(NULL, ",");
-    fecha = strtok(NULL, ",");
+    ide = atoi(strtok(datos, ",\n"));
+    int esp = atoi(strtok(NULL, ",\n"));
+    nombre = strtok(NULL, ",\n");
+    int jornada = atoi(strtok(NULL, ",\n"));
+    char* correo = strtok(NULL, ",\n");
+    fecha = strtok(NULL, ",\n");
     return veterinario_new(ide, esp, nombre, jornada, correo, fecha);
     break;
   default:
     fprintf(stderr, "Sistema:\tEntidad no v\'alida.");
   }
 
-  free(datos);
+  //free(datos);
   /*Cerramos el archivo*/
   fclose(administrador->fp);
 
