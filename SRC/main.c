@@ -9,7 +9,7 @@
 
 int salir();
 int agrega(enum Entidad , Administrador* );
-
+int consulta(enum Entidad, Administrador*, int);
 /* Hilo de ejecución principal. */
 int main(int argc, char** argv) {
   const char * archivos[] = {
