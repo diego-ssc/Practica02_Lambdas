@@ -32,62 +32,66 @@ int main(int argc, char** argv) {
   char line[TAMANO_LINEA];
   int i;
   int  c = 0;
-  while (!c) {
-    printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
-    if (fgets(line, sizeof(line), stdin))
-      if(1 == sscanf(line, "%d", &i))
-        if (0 < i && i < 5)
-          c =1;
-  }
-
-
-  switch (i){
-    //AGREGAR
-  case 1:
-    c = 0;
+  do {
     while (!c) {
-      printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+      printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
       if (fgets(line, sizeof(line), stdin))
         if(1 == sscanf(line, "%d", &i))
-          if (0 < i && i < 4)
+          if (0 < i && i < 5)
             c =1;
     }
-    while (!agrega(i-1, administrador)) {
-      if (salir())
-        break;
+
+
+    switch (i){
+      //AGREGAR
+    case 1:
+      c = 0;
+      while (!c) {
+        printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+        if (fgets(line, sizeof(line), stdin))
+          if(1 == sscanf(line, "%d", &i))
+            if (0 < i && i < 4)
+              c =1;
+      }
+      while (!agrega(i-1, administrador)) {
+        if (salir())
+          break;
+      }
+      break;
+
+      // ELIMINAR
+    case 2:
+      eliminar(administrador);
+      break;
+
+      // CONSULTA
+    case 3:
+      c = 0;
+      while (!c) {
+        printf("Ingrese el id de la entidad a consultar:\n");
+        if (fgets(line, sizeof(line), stdin))
+          if(1 == sscanf(line, "%d", &i))
+            if (0 < i)
+              c = 1;
+      }
+      while (!consulta(i-1, administrador, i)) {
+        if (salir())
+          break;
+      }
+      break;
+
+      // EDITAR
+    case 4:
+      editar(administrador);
+      break;
+    default:
+     
     }
-    break;
-
-    // ELIMINAR
-  case 2:
-    eliminar(administrador);
-    break;
-
-    // CONSULTA
-  case 3:
-        c = 0;
-    while (!c) {
-      printf("Ingrese el id de la entidad a consultar:\n");
-      if (fgets(line, sizeof(line), stdin))
-        if(1 == sscanf(line, "%d", &i))
-          if (0 < i)
-            c = 1;
-    }
-    while (!consulta(i-1, administrador, i)) {
-      if (salir())
-        break;
-    }
-    break;
-
-    // EDITAR
-  case 4:
-    editar(administrador);
-    break;
-  default:
-
-  }
+  }while (!salir());
+  
   return 0;
 }
+
 
 /* Encapsula la función para eliminar. */
 void eliminar(Administrador* administrador) {
@@ -422,7 +426,7 @@ void editar(Administrador* administrador) {
 int salir() {
   char line[TAMANO_LINEA];
   int i;
-  printf("Salir?(0=no\n1=yes) : ");
+  printf("Salir?(0=no, 1=yes) : ");
   if (!fgets(line, TAMANO_LINEA, stdin)) {
     printf("Error de input\n");
     return 0;
