@@ -127,7 +127,7 @@ void administrador_agrega(Administrador* administrador, void* entidad, enum Enti
 
 /* Elimina el animal parámetro de la base de datos. */
 void administrador_elimina(Administrador* administrador, int id, enum Entidad e) {
-  if (id >= *(administrador->cantidades + e)) {
+  if (id > *(administrador->cantidades + e)) {
     fprintf(stderr, "Sistema:\tEntidad no válida\n");
     return;
   }
@@ -145,7 +145,7 @@ void administrador_elimina(Administrador* administrador, int id, enum Entidad e)
   switch (e) {
   case ANIMAL:
     Animal** animales = malloc(sizeof(Animal*)*(*(administrador->cantidades + ANIMAL)));
-    a = *(administrador->cantidades + ANIMAL)-1;
+    a = *(administrador->cantidades + ANIMAL);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
@@ -186,7 +186,7 @@ void administrador_elimina(Administrador* administrador, int id, enum Entidad e)
     break;
   case BIOMA:
     Bioma** biomas = malloc(sizeof(Bioma*)*(*(administrador->cantidades + BIOMA)));
-    a = *(administrador->cantidades + BIOMA)-1;
+    a = *(administrador->cantidades + BIOMA);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
@@ -226,7 +226,7 @@ void administrador_elimina(Administrador* administrador, int id, enum Entidad e)
   case VETERINARIO:
     Veterinario** veterinarios = malloc(sizeof(Veterinario*)*
                                         (*(administrador->cantidades + VETERINARIO)));
-    a = *(administrador->cantidades + VETERINARIO)-1;
+    a = *(administrador->cantidades + VETERINARIO);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
@@ -312,10 +312,10 @@ void* administrador_consulta(Administrador* administrador, int id, enum Entidad 
   while(!feof(administrador->fp)) {
     if(fgets(datos, TAMANO_LINEA, administrador->fp)) {
       if (atoi(datos) == id)
-        break;    
+        break;
     }
   }
-  
+
   int ide;
   char* nombre;
   char* fecha;
@@ -401,7 +401,7 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
       return;
     }
     Animal** animales = malloc(sizeof(Animal*)*(*(administrador->cantidades + ANIMAL)));
-    a = *(administrador->cantidades + ANIMAL)-1;
+    a = *(administrador->cantidades + ANIMAL);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
@@ -411,7 +411,7 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
       char* f_n = strtok(0, ",\n");
       char* n   = strtok(0, ",\n");
       char* e   = strtok(0, ",\n");
-
+      printf("EEEEE: %s\n", e);
       switch (n_a) {
       case 1:
         bioma = *((int*)atributo);
@@ -431,6 +431,7 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
         return;
       }
 
+     
       *(animales + i) = animal_new(id, bioma, f_n, n, e);
       i++;
     }
@@ -461,7 +462,7 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
       return;
     }
     Bioma** biomas = malloc(sizeof(Bioma*)*(*(administrador->cantidades + BIOMA)));
-    a = *(administrador->cantidades + BIOMA)-1;
+    a = *(administrador->cantidades + BIOMA);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 
@@ -513,7 +514,7 @@ void administrador_edita(Administrador* administrador, int id, int n_a, void* at
     }
     Veterinario** veterinarios = malloc(sizeof(Veterinario*)*
                                         (*(administrador->cantidades + VETERINARIO)));
-    a = *(administrador->cantidades + VETERINARIO)-1;
+    a = *(administrador->cantidades + VETERINARIO);
     while (!feof(administrador->fp) && a--) {
       fgets(s, TAMANO_LINEA, administrador->fp);
 

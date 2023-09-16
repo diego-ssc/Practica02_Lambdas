@@ -62,8 +62,10 @@ int main(int argc, char** argv) {
               c =1;
       }
       while (!agrega(i-1, administrador)) {
-        if (salir())
+        if (salir()) {
+          administrador_free(administrador);
           break;
+        }
       }
       i =0;
       break;
@@ -98,8 +100,10 @@ int main(int argc, char** argv) {
       }
       
       while (!consulta(i-1, administrador, id_e)) {
-        if (salir())
+        if (salir()){
+          administrador_free(administrador);
           break;
+        }
       }
       i = 0;
       break;
@@ -110,10 +114,11 @@ int main(int argc, char** argv) {
       i = 0;
       break;
     case 5:
+      administrador_free(administrador);
       return 0;
     }
   }while (!salir());
-
+  administrador_free(administrador);
   return 0;
 }
 
@@ -144,14 +149,14 @@ void eliminar(Administrador* administrador) {
     /* Animal. */
   case 1:
     printf("Ingrese el identificador del animal a eliminar [máximo: %d].\n",
-           administrador_animales(administrador)-1);
+           administrador_animales(administrador));
 
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
 
     sscanf(linea, "%d", &i);
-    while (!i || i >= administrador_animales(administrador)) {
+    while (!i || i > administrador_animales(administrador)) {
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -164,14 +169,14 @@ void eliminar(Administrador* administrador) {
     /* Bioma. */
   case 2:
     printf("Ingrese el identificador del bioma a eliminar [máximo: %d].\n",
-           administrador_biomas(administrador)-1);
+           administrador_biomas(administrador));
 
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
 
     sscanf(linea, "%d", &i);
-    while (!i || i >= administrador_biomas(administrador)) {
+    while (!i || i > administrador_biomas(administrador)) {
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -184,14 +189,14 @@ void eliminar(Administrador* administrador) {
     /* Veterinario. */
   case 3:
     printf("Ingrese el identificador del veterinario a eliminar [máximo: %d].\n",
-           administrador_veterinarios(administrador)-1);
+           administrador_veterinarios(administrador));
 
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
 
     sscanf(linea, "%d", &i);
-    while (!i || i >= administrador_veterinarios(administrador)) {
+    while (!i || i > administrador_veterinarios(administrador)) {
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -229,20 +234,20 @@ void editar(Administrador* administrador) {
     /* Animal. */
   case 1:
     printf("Ingrese el identificador del animal a editar [máximo: %d].\n",
-           administrador_animales(administrador)-1);
+           administrador_animales(administrador));
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
 
     sscanf(linea, "%d", &i);
-    while (!i || i >= administrador_animales(administrador)) {
+    while (!i || i > administrador_animales(administrador)) {
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
       sscanf(linea, "%d", &i);
     }
     id = i;
-
+    
     printf("Ingrese el identificador del atributo a editar.\n"
            "BIOMA               : 1\n"
            "FECHA DE NACIMIENTO : 2\n"
@@ -250,6 +255,7 @@ void editar(Administrador* administrador) {
            "ESPECIE             : 4\n");
 
     i = 0;
+    *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
 
@@ -270,6 +276,7 @@ void editar(Administrador* administrador) {
       /* Bioma-Animal. */
     case 1:
       printf("Ingrese el bioma nuevo [número entero].\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -279,6 +286,7 @@ void editar(Administrador* administrador) {
       /* Fecha Nacimiento. */
     case 2:
       printf("Ingrese la nueva fecha de nacimiento.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -287,6 +295,7 @@ void editar(Administrador* administrador) {
       /* Nombre. */
     case 3:
       printf("Ingrese el nuevo nombre.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -295,6 +304,7 @@ void editar(Administrador* administrador) {
       /* Especie. */
     case 4:
       printf("Ingrese la nueva especie.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -306,7 +316,7 @@ void editar(Administrador* administrador) {
     /* Bioma. */
   case 2:
     printf("Ingrese el identificador del bioma a editar [máximo: %d].\n",
-           administrador_biomas(administrador)-1);
+           administrador_biomas(administrador));
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
@@ -319,7 +329,7 @@ void editar(Administrador* administrador) {
       sscanf(linea, "%d", &i);
     }
     id = i;
-
+    *linea = '\0';
     printf("Ingrese el identificador del atributo a editar.\n"
            "NOMBRE              : 1\n"
            "REGIÓN              : 2\n");
@@ -345,6 +355,7 @@ void editar(Administrador* administrador) {
       /* Nombre. */
     case 1:
       printf("Ingrese el nuevo nombre.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -353,6 +364,7 @@ void editar(Administrador* administrador) {
       /* Región. */
     case 2:
       printf("Ingrese la nueva región.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -364,7 +376,7 @@ void editar(Administrador* administrador) {
     /* Veterinario. */
   case 3:
     printf("Ingrese el identificador del veterinario a editar [máximo: %d].\n",
-           administrador_veterinarios(administrador)-1);
+           administrador_veterinarios(administrador));
     *linea = '\0';
     while (*(linea) == '\0')
       fgets(linea, TAMANO_LINEA, stdin);
@@ -377,7 +389,7 @@ void editar(Administrador* administrador) {
       sscanf(linea, "%d", &i);
     }
     id = i;
-
+    *linea = '\0';
     printf("Ingrese el identificador del atributo a editar.\n"
            "ESPECIALIDAD        : 1\n"
            "NOMBRE              : 2\n"
@@ -405,6 +417,7 @@ void editar(Administrador* administrador) {
       /* Especialidad. */
     case 1:
       printf("Ingrese la nueva especialidad.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -415,7 +428,7 @@ void editar(Administrador* administrador) {
       /* Nombre. */
     case 2:
       printf("Ingrese el nuevo nombre.\n");
-
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -424,6 +437,7 @@ void editar(Administrador* administrador) {
       /* Jornada */
     case 3:
       printf("Ingrese la nueva jornada.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -434,6 +448,7 @@ void editar(Administrador* administrador) {
       /* Correo Electrónico. */
     case 4:
       printf("Ingrese el nuevo correo electrónico.\n");
+      *linea = '\0';
       while (*(linea) == '\0')
         if (strstr(fgets(linea, TAMANO_LINEA, stdin) ? linea : "", "@") != 0)
           break;
@@ -443,7 +458,7 @@ void editar(Administrador* administrador) {
       /* Fecha de Nacimiento. */
     case 5:
       printf("Ingrese la nueva fecha de nacimiento.\n");
-
+      *linea = '\0';
       while (*(linea) == '\0')
         fgets(linea, TAMANO_LINEA, stdin);
 
@@ -492,6 +507,7 @@ int agrega(enum Entidad e, Administrador* administrador) {
     Animal* animal = animal_new(id, bioma_id, fecha, nombre, especie);
     printf("Animal(%d, %d, %s, %s, %s)\n", id, bioma_id, nombre, especie, fecha);
     administrador_agrega(administrador, animal, ANIMAL);
+    animal_free(animal);
     return 1;
     break;
   case BIOMA :
@@ -509,6 +525,7 @@ int agrega(enum Entidad e, Administrador* administrador) {
     Bioma* bioma = bioma_new(nombre, region, id);
     printf("Bioma(%d, %s, %s)\n", id,  nombre, region);
     administrador_agrega(administrador, bioma, BIOMA);
+    bioma_free(bioma);
     return 1;
     break;
   case VETERINARIO:
@@ -531,6 +548,8 @@ int agrega(enum Entidad e, Administrador* administrador) {
     Veterinario* vet = veterinario_new(id, esp, nombre, jornada, correo, fecha);
     printf("Veterinario(%d, %s, %d, %d, %s, %s )\n", id,  nombre, esp, jornada, correo, fecha);
     administrador_agrega(administrador, vet, VETERINARIO);
+    veterinario_free(vet);
+    
     return 1;
     break;
   default:
