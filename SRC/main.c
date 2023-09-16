@@ -48,12 +48,6 @@ int main(int argc, char** argv) {
       if (salir())
         break;
     } 
-    /* printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n"); */
-    /* if (fgets(line, sizeof(line), stdin)) { */
-    /*   if(1 == sscanf(line, "%d", &i)){ */
-              
-    /*   } */
-    /* } */
     break;
     // ELIMINAR
   case 2:
@@ -82,7 +76,6 @@ int main(int argc, char** argv) {
         
   }
   
-
   return 0;
 }
 
