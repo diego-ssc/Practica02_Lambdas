@@ -34,20 +34,27 @@ int main(int argc, char** argv) {
   int  c = 0;
   do {
     while (!c) {
-      printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
+      printf("Ingrese el número de la operacion:\n"
+             "AGREGAR   : 1\n"
+             "ELIMINAR  : 2\n"
+             "CONSULTAR : 3\n"
+             "EDITAR    : 4\n"
+             "SALIR     : 5\n");
       if (fgets(line, sizeof(line), stdin))
         if(1 == sscanf(line, "%d", &i))
-          if (0 < i && i < 5)
+          if (0 < i && i < 6)
             c =1;
     }
-
 
     switch (i){
       //AGREGAR
     case 1:
       c = 0;
       while (!c) {
-        printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+        printf("Ingrese el número de la entidad para operar:\n"
+               "ANIMAL      : 1\n"
+               "BIOMA       : 2\n"
+               "VETERINARIO : 3\n");
         if (fgets(line, sizeof(line), stdin))
           if(1 == sscanf(line, "%d", &i))
             if (0 < i && i < 4)
@@ -84,18 +91,21 @@ int main(int argc, char** argv) {
     case 4:
       editar(administrador);
       break;
-    default:
-     
+    case 5:
+      return 0;
     }
   }while (!salir());
-  
+
   return 0;
 }
 
 
 /* Encapsula la función para eliminar. */
 void eliminar(Administrador* administrador) {
-  printf("Ingrese el número de la entidad:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+  printf("Ingrese el número de la entidad:\n"
+         "ANIMAL      : 1\n"
+         "BIOMA       : 2\n"
+         "VETERINARIO : 3\n");
   char linea[TAMANO_LINEA] = "\0";
   int i = 0;
   while (*(linea) == '\0')
@@ -176,7 +186,10 @@ void eliminar(Administrador* administrador) {
 
 /* Encapsula la función para editar. */
 void editar(Administrador* administrador) {
-  printf("Ingrese el número de la entidad:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+  printf("Ingrese el número de la entidad:\n"
+         "ANIMAL      : 1\n"
+         "BIOMA       : 2\n"
+         "VETERINARIO : 3\n");
   char linea[TAMANO_LINEA] = "\0";
   int i = 0, id;
 
@@ -426,7 +439,7 @@ void editar(Administrador* administrador) {
 int salir() {
   char line[TAMANO_LINEA];
   int i;
-  printf("Salir?(0=no, 1=yes) : ");
+  printf("Salir?(0=no, 1=yes) :\n");
   if (!fgets(line, TAMANO_LINEA, stdin)) {
     printf("Error de input\n");
     return 0;
