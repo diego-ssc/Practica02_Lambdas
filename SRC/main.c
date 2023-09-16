@@ -21,28 +21,39 @@ int main(int argc, char** argv) {
                                                    NUMERO_ENTIDADES);
 
 
-  printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
   char line[TAMANO_LINEA];
   int i;
-  while (!fgets(line, TAMANO_LINEA, stdin)  ) {
-    while ( 1 != sscanf(line, "%d", &i))
-      printf("Error de input");
-    break;
+  int  c = 0;
+  while (!c) {
+    printf("Ingrese el numero de la operacion:\nAGREGAR : 1\nELIMINAR : 2\nCONSULTAR : 3\nEDITAR : 4\n");
+    if (fgets(line, sizeof(line), stdin)) 
+      if(1 == sscanf(line, "%d", &i))
+        if (0 < i && i < 5)
+          c =1;
   }
-
+  
 
   switch (i){
     //AGREGAR
   case 1:
-    printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
-    if (fgets(line, sizeof(line), stdin)) {
-      if(1 == sscanf(line, "%d", &i)){
-        while (!agrega(i-1, administrador)) {
-          if (salir())
-            break;
-        }       
-      }
+    c = 0;
+    while (!c) {
+      printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n");
+      if (fgets(line, sizeof(line), stdin)) 
+        if(1 == sscanf(line, "%d", &i))
+          if (0 < i && i < 4)
+            c =1;
     }
+    while (!agrega(i-1, administrador)) {
+      if (salir())
+        break;
+    } 
+    /* printf("Ingrese el numero de la entidad para operar:\nANIMAL : 1\nBIOMA : 2\nVETERINARIO : 3\n"); */
+    /* if (fgets(line, sizeof(line), stdin)) { */
+    /*   if(1 == sscanf(line, "%d", &i)){ */
+              
+    /*   } */
+    /* } */
     break;
     // ELIMINAR
   case 2:
@@ -52,12 +63,20 @@ int main(int argc, char** argv) {
     break;
     // EDITAR
   case 4:
-    printf("Ingrese el id de la entidad a consultar:\n");
-    while (!fgets(line, TAMANO_LINEA, stdin)  ) {
-      while ( 1 != sscanf(line, "%d", &i))
-        printf("Error de input");
-      break;
+    c = 0;
+    while (!c) {
+      printf("Ingrese el id de la entidad a consultar:\n");
+      if (fgets(line, sizeof(line), stdin)) 
+        if(1 == sscanf(line, "%d", &i))
+          if (0 < i)
+            c = 1;
     }
+    while (!consulta(i-1, administrador, i)) {
+      if (salir())
+        break;
+    } 
+    
+   
     break;
   default:
         
@@ -90,14 +109,14 @@ int agrega(enum Entidad e, Administrador* administrador) {
   
   switch (e) {
   case ANIMAL :
-    printf("Datos a ingresar (bioma (int), nombre, especie, fecha_nacimiento)\ningrese los datos separados por espacios");
+    printf("Datos a ingresar (bioma (int), nombre, especie, fecha_nacimiento)\ningrese los datos separados por espacios.\n");
     if (!fgets(line, TAMANO_LINEA, stdin)) {
       printf("Error de input\n");
       return 0;
     }
     int bioma_id;
     char especie[TAMANO_NOMBRE];
-    if (3 != sscanf(line, "%s %s %s", nombre, especie, fecha)){
+    if (4 != sscanf(line, "%d %s %s %s", &bioma_id, nombre, especie, fecha)){
       printf("Error de input\n");
       return 0;     
     }
@@ -154,19 +173,54 @@ int agrega(enum Entidad e, Administrador* administrador) {
 
 
 
-int consulta(enum Entidad e, Administrador* administrador) {
+int consulta(enum Entidad e, Administrador* administrador, int id) {
+  
   switch (e) {
   case ANIMAL:
+    Animal* animal = administrador_consulta(administrador, id, e);
+    
+    if (animal){
+      printf("Animal(%d, %d, %s, %s, %s)",
+           animal_id(animal),
+           animal_bioma(animal),
+           animal_nombre(animal),
+           animal_especie(animal),
+           animal_fecha_nacimiento(animal));   
+      return 1;
+    }
+    
+      break;
+  case BIOMA:
+    Bioma* bioma = administrador_consulta(administrador, id, e);
+    if (bioma) {
+      printf("Bioma(%d, %s, %s)",
+           bioma_id(bioma),
+           bioma_nombre(bioma),
+           bioma_region(bioma));
+      return 1;
+    }
     
     break;
-  case BIOMA:
-    break;
   case VETERINARIO:
+    Veterinario* vet= administrador_consulta(administrador, id, e);
+    
+    if (vet) {
+      printf("Veterinario(%d, %d, %s, %d, %s, %s)",
+             veterinario_id(vet),
+             veterinario_esp(vet),
+             veterinario_nombre(vet),
+             veterinario_jornada(vet),
+             veterinario_correo(vet),
+             veterinario_fecha_nacimiento(vet));   
+      return 1;
+    }
     break;
   default:
     printf("Error de input\n");
     return 0;
   }
+  printf("Error de input\n");
+  return 0;
 }
 
 
